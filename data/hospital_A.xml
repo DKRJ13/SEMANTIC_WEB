@@ -1,0 +1,124 @@
+<EHR_Database>
+    
+    <!-- MASTER TERMINOLOGY DIRECTORY -->
+    <Diseases>
+        <Disease id="D-01"><Name>Diabetes Type 2</Name></Disease>
+        <Disease id="D-02"><Name>Hypertension</Name></Disease>
+        <Disease id="D-03"><Name>Chronic Kidney Disease</Name></Disease>
+        <Disease id="D-04"><Name>Asthma</Name></Disease>
+        <Disease id="D-05"><Name>Huntington's chorea</Name></Disease>
+    </Diseases>
+
+    <Drugs>
+        <Drug id="RX-01"><Name>Metformin</Name></Drug>
+        <Drug id="RX-02"><Name>Warfarin</Name></Drug>
+        <Drug id="RX-03"><Name>Ibuprofen</Name></Drug>
+        <Drug id="RX-04"><Name>Lisinopril</Name></Drug>
+        <Drug id="RX-05"><Name>Amlodipine</Name></Drug>
+    </Drugs>
+
+    <!-- PROVIDER DIRECTORY -->
+    <Doctors>
+        <!-- Primary Care Network -->
+        <Doctor id="DOC-A1">
+            <Name>Dr. Sarah Connor</Name>
+            <Specialty>Primary Care</Specialty>
+            <ReliesOnRef>DOC-A5</ReliesOnRef> 
+        </Doctor>
+        <Doctor id="DOC-A5">
+            <Name>Dr. Chris Taub</Name>
+            <Specialty>Primary Care</Specialty>
+        </Doctor>
+        
+        <!-- Cardiology Network -->
+        <Doctor id="DOC-A2">
+            <Name>Dr. Eric Foreman</Name>
+            <Specialty>Cardiology</Specialty>
+            <ReliesOnRef>DOC-A6</ReliesOnRef>
+        </Doctor>
+        <Doctor id="DOC-A6">
+            <Name>Dr. Stephen Strange</Name>
+            <Specialty>Cardiology</Specialty>
+        </Doctor>
+        
+        <!-- Endocrinology Network -->
+        <Doctor id="DOC-A3">
+            <Name>Dr. Lisa Cuddy</Name>
+            <Specialty>Endocrinology</Specialty>
+            <ReliesOnRef>DOC-A7</ReliesOnRef>
+        </Doctor>
+        <Doctor id="DOC-A7">
+            <Name>Dr. Allison Cameron</Name>
+            <Specialty>Endocrinology</Specialty>
+        </Doctor>
+    </Doctors>
+
+    <!-- PATIENT DIRECTORY -->
+    <Patients>
+        <!-- Generation 1 (Ancestors) -->
+        <Patient id="P-099">
+            <FullName>Genevieve Smith</FullName>
+            <DateOfBirth>1955-02-12</DateOfBirth>
+            <GeneticConditionRef>D-05</GeneticConditionRef> <!-- Huntington's -->
+        </Patient>
+        
+        <Patient id="P-105">
+            <FullName>Old Bob Johnson</FullName>
+            <DateOfBirth>1950-10-10</DateOfBirth>
+            <GeneticConditionRef>D-05</GeneticConditionRef>
+            <AttendingPhysicianRef>DOC-A3</AttendingPhysicianRef>
+        </Patient>
+
+        <!-- Generation 2 -->
+        <Patient id="P-101">
+            <FullName>Alice Smith</FullName>
+            <DateOfBirth>1985-06-14</DateOfBirth>
+            <ParentRef>P-099</ParentRef>
+            <ConditionRef>D-01</ConditionRef>
+            <PrescriptionRef>RX-01</PrescriptionRef>
+            <PrescriptionRef>RX-02</PrescriptionRef>
+            <AttendingPhysicianRef>DOC-A1</AttendingPhysicianRef>
+        </Patient>
+
+        <Patient id="P-102">
+            <FullName>Bob Johnson</FullName>
+            <DateOfBirth>1972-11-03</DateOfBirth>
+            <ParentRef>P-105</ParentRef>
+            <ConditionRef>D-02</ConditionRef>
+            <ConditionRef>D-03</ConditionRef>
+            <PrescriptionRef>RX-04</PrescriptionRef>
+            <AttendingPhysicianRef>DOC-A2</AttendingPhysicianRef> <!-- Cardiology -->
+        </Patient>
+
+        <Patient id="P-103">
+            <FullName>Carol White</FullName>
+            <DateOfBirth>1990-08-22</DateOfBirth>
+            <ConditionRef>D-04</ConditionRef>
+            <PrescriptionRef>RX-03</PrescriptionRef>
+            <AttendingPhysicianRef>DOC-A1</AttendingPhysicianRef> <!-- Primary Care -->
+        </Patient>
+
+        <Patient id="P-104">
+            <FullName>David Lee</FullName>
+            <DateOfBirth>1965-01-30</DateOfBirth>
+            <ConditionRef>D-02</ConditionRef>
+            <AttendingPhysicianRef>DOC-A3</AttendingPhysicianRef> <!-- Endocrinology -->
+        </Patient>
+        
+        <Patient id="P-106">
+            <FullName>Eve Carter</FullName>
+            <DateOfBirth>1988-04-15</DateOfBirth>
+            <ConditionRef>D-04</ConditionRef>
+            <AttendingPhysicianRef>DOC-A2</AttendingPhysicianRef>
+        </Patient>
+
+        <Patient id="P-107">
+            <FullName>Frank Wright</FullName>
+            <DateOfBirth>1970-09-09</DateOfBirth>
+            <ConditionRef>D-01</ConditionRef>
+            <PrescriptionRef>RX-01</PrescriptionRef>
+            <AttendingPhysicianRef>DOC-A3</AttendingPhysicianRef>
+        </Patient>
+    </Patients>
+
+</EHR_Database>

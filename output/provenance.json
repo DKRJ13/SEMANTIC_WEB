@@ -1,0 +1,162 @@
+{
+  "http://hospital-a.org/patient#D_01": [
+    "hospital_a_diseases.csv"
+  ],
+  "http://hospital-a.org/patient#D_02": [
+    "hospital_a_diseases.csv"
+  ],
+  "http://hospital-a.org/patient#D_03": [
+    "hospital_a_diseases.csv"
+  ],
+  "http://hospital-a.org/patient#D_04": [
+    "hospital_a_diseases.csv"
+  ],
+  "http://hospital-a.org/patient#D_05": [
+    "hospital_a_diseases.csv"
+  ],
+  "http://hospital-a.org/patient#RX_01": [
+    "hospital_a_drugs.csv"
+  ],
+  "http://hospital-a.org/patient#RX_02": [
+    "hospital_a_drugs.csv"
+  ],
+  "http://hospital-a.org/patient#RX_03": [
+    "hospital_a_drugs.csv"
+  ],
+  "http://hospital-a.org/patient#RX_04": [
+    "hospital_a_drugs.csv"
+  ],
+  "http://hospital-a.org/patient#RX_05": [
+    "hospital_a_drugs.csv"
+  ],
+  "http://hospital-a.org/ehr#DOC-A1": [
+    "hospital_a_doctors.csv"
+  ],
+  "http://hospital-a.org/ehr#DOC-A5": [
+    "hospital_a_doctors.csv"
+  ],
+  "http://hospital-a.org/ehr#DOC-A2": [
+    "hospital_a_doctors.csv"
+  ],
+  "http://hospital-a.org/ehr#DOC-A6": [
+    "hospital_a_doctors.csv"
+  ],
+  "http://hospital-a.org/ehr#DOC-A3": [
+    "hospital_a_doctors.csv"
+  ],
+  "http://hospital-a.org/ehr#DOC-A7": [
+    "hospital_a_doctors.csv"
+  ],
+  "http://unified.org/patient#Genevieve_Smith": [
+    "hospital_a_patients.csv"
+  ],
+  "http://unified.org/patient#Old_Bob_Johnson": [
+    "hospital_a_patients.csv"
+  ],
+  "http://unified.org/patient#Alice_Smith": [
+    "hospital_a_patients.csv",
+    "hospital_b_patients.csv"
+  ],
+  "http://unified.org/patient#Bob_Johnson": [
+    "hospital_a_patients.csv",
+    "hospital_b_patients.csv"
+  ],
+  "http://unified.org/patient#Carol_White": [
+    "hospital_a_patients.csv"
+  ],
+  "http://unified.org/patient#David_Lee": [
+    "hospital_a_patients.csv"
+  ],
+  "http://unified.org/patient#Eve_Carter": [
+    "hospital_a_patients.csv",
+    "hospital_c_patients.csv"
+  ],
+  "http://unified.org/patient#Frank_Wright": [
+    "hospital_a_patients.csv"
+  ],
+  "http://unified.org/patient#Zara_Khan": [
+    "hospital_a_patients.csv",
+    "hospital_b_patients.csv"
+  ],
+  "http://hospital-b.org/patient#G10": [
+    "hospital_b_diseases.csv"
+  ],
+  "http://hospital-b.org/patient#E11": [
+    "hospital_b_diseases.csv"
+  ],
+  "http://hospital-b.org/patient#I10": [
+    "hospital_b_diseases.csv"
+  ],
+  "http://hospital-b.org/patient#N18": [
+    "hospital_b_diseases.csv"
+  ],
+  "http://hospital-b.org/patient#J45": [
+    "hospital_b_diseases.csv"
+  ],
+  "http://hospital-b.org/patient#MED_01": [
+    "hospital_b_drugs.csv"
+  ],
+  "http://hospital-b.org/patient#MED_02": [
+    "hospital_b_drugs.csv"
+  ],
+  "http://hospital-b.org/patient#MED_03": [
+    "hospital_b_drugs.csv"
+  ],
+  "http://hospital-b.org/patient#MED_04": [
+    "hospital_b_drugs.csv"
+  ],
+  "http://hospital-b.org/patient#MED_05": [
+    "hospital_b_drugs.csv"
+  ],
+  "http://hospital-b.org/patient#F_01": [
+    "hospital_b_foods.csv"
+  ],
+  "http://hospital-b.org/patient#F_02": [
+    "hospital_b_foods.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-01": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-05": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-02": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-06": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-03": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-07": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-04": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://hospital-b.org/clinical#OFF-08": [
+    "hospital_b_doctors.csv"
+  ],
+  "http://unified.org/patient#Arthur_Johnson": [
+    "hospital_b_patients.csv"
+  ],
+  "http://unified.org/patient#Emily_Turner": [
+    "hospital_b_patients.csv"
+  ],
+  "http://unified.org/patient#Mohan_Kumar": [
+    "hospital_b_patients.csv"
+  ],
+  "http://unified.org/patient#Liam_Nguyen": [
+    "hospital_b_patients.csv"
+  ],
+  "http://unified.org/patient#Sarah_Olsen": [
+    "hospital_b_patients.csv"
+  ],
+  "http://hospital-c.org/patient#NPRX": [
+    "hospital_c_meds.csv"
+  ],
+  "http://unified.org/patient#John_Doe": [
+    "hospital_c_patients.csv"
+  ]
+}

@@ -1,0 +1,55 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+@prefix clin: <http://hospital-b.org/clinical#> .
+@prefix ehr:  <http://hospital-a.org/ehr#> . # Needed for ehr:seenBy equivalent
+@prefix sct:  <http://snomed.info/id/> .
+
+<http://medonto.org/snomed-mapping-B>
+    rdf:type owl:Ontology ;
+    owl:imports <http://hospital-b.org/clinical> ;
+    owl:imports <http://snomed.info/id/core> .
+
+# ──────────────────────────────────────────────
+#  CLASS MAPPINGS (Hospital B -> SNOMED)
+# ──────────────────────────────────────────────
+
+clin:ClinicalSubject    owl:equivalentClass sct:125676002 . # Patient
+clin:Diagnosis          owl:equivalentClass sct:404684003 . # Disease
+clin:Medication         owl:equivalentClass sct:373873005 . # Drug
+clin:NutritionEntry     owl:equivalentClass sct:105590001 . # Food
+
+# ──────────────────────────────────────────────
+#  PROPERTY MAPPINGS (Hospital B -> SNOMED)
+# ──────────────────────────────────────────────
+
+clin:hasDiagnosis             owl:equivalentProperty sct:associatedWith .
+clin:onMedication             owl:equivalentProperty sct:prescribedTo .
+clin:hasNutritionEntry        owl:equivalentProperty sct:consumes .
+clin:hasBiologicalParent      owl:equivalentProperty sct:hasBiologicalParent .
+clin:hasBiologicalAncestor    owl:equivalentProperty sct:hasBiologicalAncestor .
+clin:hasGeneticDiagnosis      owl:equivalentProperty sct:hasGeneticDisease .
+clin:underCareOf              owl:equivalentProperty ehr:seenBy . # Cross-hospital prop equivalence
+
+# ──────────────────────────────────────────────
+#  INSTANCE MAPPINGS (Hospital B Entities -> SNOMED)
+# ──────────────────────────────────────────────
+
+# Diseases
+clin:AdultOnsetDiabetes     rdf:type sct:73211009 .
+clin:EssentialHypertension  rdf:type sct:38341003 .
+clin:ChronicRenalFailure    rdf:type sct:709044004 .
+clin:BronchialAsthma        rdf:type sct:195967001 .
+clin:HuntingtonsDisease     rdf:type sct:58756001 .
+
+# Drugs
+clin:AcetylsalicylicAcid    rdf:type sct:7947003 .
+clin:Ibuprofen              rdf:type sct:387207008 .
+clin:MetforminHydrochloride rdf:type sct:372567009 .
+clin:Lisinopril             rdf:type sct:372706001 .
+clin:SalbutamolSulfate      rdf:type sct:387353006 .
+clin:Amlodipine             rdf:type sct:372605008 .
+
+# Food
+clin:Grapefruit             rdf:type sct:110540003 .
+clin:GrapefruitJuice        rdf:type sct:110540003 .

@@ -1,0 +1,30 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+@prefix medc: <http://hospital-c.org/med#> .
+@prefix sct:  <http://snomed.info/id/> .
+
+<http://medonto.org/snomed-mapping-C>
+    rdf:type owl:Ontology ;
+    owl:imports <http://hospital-c.org/med> ;
+    owl:imports <http://snomed.info/id/core> .
+
+# ──────────────────────────────────────────────
+#  CLASS MAPPINGS (Hospital C -> SNOMED)
+# ──────────────────────────────────────────────
+
+medc:MedicalRecord      owl:equivalentClass sct:125676002 . # Patient
+medc:Drug               owl:equivalentClass sct:373873005 . # Drug
+
+# ──────────────────────────────────────────────
+#  PROPERTY MAPPINGS (Hospital C -> SNOMED)
+# ──────────────────────────────────────────────
+
+medc:administeredDrug   owl:equivalentProperty sct:prescribedTo .
+
+# ──────────────────────────────────────────────
+#  INSTANCE MAPPINGS (Hospital C Entities -> SNOMED)
+# ──────────────────────────────────────────────
+
+# Drugs
+medc:Naproxen           rdf:type sct:397156001 . # Maps to NSAID class

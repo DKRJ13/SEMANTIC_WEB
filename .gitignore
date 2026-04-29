@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+# Ignore virtual environments if you create one inside the folder
+venv/
+env/
+.env

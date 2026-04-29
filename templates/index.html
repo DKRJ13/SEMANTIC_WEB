@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Medical Reasoner</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Semantic Medical Reasoner</h1>
+            <p class="subtitle">SNOMED CT + HermiT OWL 2 DL Inference Engine</p>
+        </header>
+
+        <div class="grid">
+            <!-- LEFT PANEL: Upload + Pipeline -->
+            <div class="panel">
+                <h2>Data Sources</h2>
+
+                <!-- Current Files -->
+                <div class="section">
+                    <h3>Loaded CSV Files</h3>
+                    <ul class="file-list" id="csv-list">
+                        {% for f in csv_files %}
+                        <li>{{ f }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>Hospital Configs</h3>
+                    <ul class="file-list" id="json-list">
+                        {% for f in json_files %}
+                        <li>{{ f }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>Loaded Ontology Files</h3>
+                    <ul class="file-list" id="ttl-list">
+                        {% for f in ttl_files %}
+                        <li>{{ f }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Upload -->
+                <div class="section">
+                    <h3>Upload Files</h3>
+                    <div class="dropzone" id="dropzone">
+                        <p>Drag & drop CSV, JSON, or TTL files here</p>
+                        <p class="hint">or click to browse</p>
+                        <input type="file" id="file-input" multiple accept=".csv,.ttl,.json" hidden>
+                    </div>
+                    <div id="upload-status" class="status"></div>
+                </div>
+
+                <!-- Run Pipeline -->
+                <div class="section">
+                    <button class="btn btn-primary" id="run-btn" onclick="runPipeline()">
+                        Run Ingestion + HermiT Reasoner
+                    </button>
+                    <div id="pipeline-status" class="status"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Query -->
+            <div class="panel">
+                <h2>SPARQL Query Engine</h2>
+
+                <!-- Preset Queries -->
+                <div class="section">
+                    <h3>Pre-built Queries</h3>
+                    <div class="preset-grid">
+                        {% for key, q in presets.items() %}
+                        <button class="btn btn-preset" onclick="loadPreset('{{ key }}')">
+                            {{ q.title }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Custom Query -->
+                <div class="section">
+                    <h3>Custom SPARQL</h3>
+                    <textarea id="sparql-input" rows="10" spellcheck="false"
+                        placeholder="PREFIX sct: <http://snomed.info/id/>
+SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 10"></textarea>
+                    <button class="btn btn-primary" onclick="runQuery()">
+                        Execute Query
+                    </button>
+                </div>
+
+                <!-- Results -->
+                <div class="section" id="results-section" style="display:none;">
+                    <h3>Results <span id="result-count" class="badge"></span></h3>
+                    <div class="table-wrapper">
+                        <table id="results-table">
+                            <thead id="results-head"></thead>
+                            <tbody id="results-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="query-status" class="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const presets = {{ presets | tojson }};
+
+        // Dropzone
+        const dropzone = document.getElementById("dropzone");
+        const fileInput = document.getElementById("file-input");
+
+        dropzone.addEventListener("click", () => fileInput.click());
+        dropzone.addEventListener("dragover", (e) => { e.preventDefault(); dropzone.classList.add("active"); });
+        dropzone.addEventListener("dragleave", () => dropzone.classList.remove("active"));
+        dropzone.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dropzone.classList.remove("active");
+            uploadFiles(e.dataTransfer.files);
+        });
+        fileInput.addEventListener("change", (e) => uploadFiles(e.target.files));
+
+        function uploadFiles(files) {
+            const fd = new FormData();
+            for (const f of files) fd.append("files", f);
+            const status = document.getElementById("upload-status");
+            status.textContent = "Uploading...";
+            status.className = "status info";
+
+            fetch("/upload", { method: "POST", body: fd })
+                .then(r => r.json())
+                .then(data => {
+                    status.textContent = "Uploaded: " + data.uploaded.join(", ");
+                    status.className = "status success";
+                    setTimeout(() => location.reload(), 1000);
+                })
+                .catch(err => {
+                    status.textContent = "Upload failed: " + err;
+                    status.className = "status error";
+                });
+        }
+
+        function runPipeline() {
+            const btn = document.getElementById("run-btn");
+            const status = document.getElementById("pipeline-status");
+            btn.disabled = true;
+            btn.textContent = "Running HermiT Reasoner...";
+            status.textContent = "Ingesting CSVs and running OWL 2 DL reasoning...";
+            status.className = "status info";
+
+            fetch("/run", { method: "POST" })
+                .then(r => r.json())
+                .then(data => {
+                    btn.disabled = false;
+                    btn.textContent = "Run Ingestion + HermiT Reasoner";
+                    if (data.status === "ok") {
+                        status.textContent = data.message;
+                        status.className = "status success";
+                    } else {
+                        status.textContent = "Error: " + data.message;
+                        status.className = "status error";
+                    }
+                })
+                .catch(err => {
+                    btn.disabled = false;
+                    btn.textContent = "Run Ingestion + HermiT Reasoner";
+                    status.textContent = "Pipeline error: " + err;
+                    status.className = "status error";
+                });
+        }
+
+        function loadPreset(key) {
+            document.getElementById("sparql-input").value = presets[key].sparql.trim();
+        }
+
+        function runQuery() {
+            const sparql = document.getElementById("sparql-input").value;
+            const status = document.getElementById("query-status");
+            status.textContent = "Executing query...";
+            status.className = "status info";
+
+            fetch("/query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sparql })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "ok") {
+                    status.textContent = "";
+                    renderResults(data);
+                } else {
+                    status.textContent = "Error: " + data.message;
+                    status.className = "status error";
+                }
+            })
+            .catch(err => {
+                status.textContent = "Query error: " + err;
+                status.className = "status error";
+            });
+        }
+
+        function renderResults(data) {
+            const section = document.getElementById("results-section");
+            const head = document.getElementById("results-head");
+            const body = document.getElementById("results-body");
+            const count = document.getElementById("result-count");
+
+            section.style.display = "block";
+            count.textContent = data.count + " rows";
+            head.innerHTML = "";
+            body.innerHTML = "";
+
+            if (data.results.length === 0) {
+                body.innerHTML = '<tr><td colspan="99" class="empty">No results found.</td></tr>';
+                return;
+            }
+
+            // Header
+            const tr = document.createElement("tr");
+            for (const col of data.columns) {
+                const th = document.createElement("th");
+                th.textContent = col === "_source" ? "Source CSV" : col;
+                tr.appendChild(th);
+            }
+            head.appendChild(tr);
+
+            // Body
+            for (const row of data.results) {
+                const tr = document.createElement("tr");
+                for (const col of data.columns) {
+                    const td = document.createElement("td");
+                    let val = row[col] || "";
+                    // Clean up URIs for display
+                    if (val.startsWith("http://")) {
+                        val = val.split("#").pop().split("/").pop();
+                    }
+                    td.textContent = val;
+                    if (col === "_source") td.classList.add("source-cell");
+                    tr.appendChild(td);
+                }
+                body.appendChild(tr);
+            }
+        }
+    </script>
+</body>
+</html>

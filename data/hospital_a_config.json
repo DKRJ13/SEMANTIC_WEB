@@ -1,0 +1,59 @@
+{
+    "hospital_id": "hospital_a",
+    "namespace": "http://hospital-a.org/ehr#",
+    "instance_namespace": "http://hospital-a.org/patient#",
+
+    "csv_files": {
+        "diseases": {
+            "entity_type": "Condition",
+            "id_column": "id",
+            "columns": {
+                "name": { "property": "rdfs:label", "type": "literal" }
+            }
+        },
+        "drugs": {
+            "entity_type": "Prescription",
+            "id_column": "id",
+            "columns": {
+                "name": { "property": "rdfs:label", "type": "literal" }
+            }
+        },
+        "doctors": {
+            "entity_type": "MedicalPersonnel",
+            "id_column": "id",
+            "use_namespace_for_id": true,
+            "columns": {
+                "name":           { "property": "rdfs:label",           "type": "literal" },
+                "specialty":      { "property": "hasSpecialty",         "type": "literal" },
+                "relies_on_ref":  { "property": "reliesOnColleague",   "type": "uri",  "uri_namespace": "self" }
+            }
+        },
+        "patients": {
+            "entity_type": "EHR_Record",
+            "id_column": "id",
+            "name_column": "full_name",
+            "columns": {
+                "full_name":                { "property": "FullName",              "type": "literal" },
+                "dob":                      { "property": "DateOfBirth",           "type": "literal" },
+                "parent_ref":               { "property": "hasParent",             "type": "instance_ref" },
+                "condition_refs":           { "property": "hasCondition",          "type": "ref", "multi": true },
+                "genetic_condition_ref":    { "property": "hasGeneticCondition",   "type": "ref" },
+                "prescription_refs":        { "property": "hasPrescription",       "type": "ref", "multi": true },
+                "attending_physician_ref":  { "property": "seenBy",               "type": "uri",  "uri_namespace": "self" }
+            }
+        }
+    },
+
+    "terminology": {
+        "D-01": "DiabetesType2",
+        "D-02": "Hypertension",
+        "D-03": "ChronicKidneyDisease",
+        "D-04": "Asthma",
+        "D-05": "Huntingtons",
+        "RX-01": "Metformin",
+        "RX-02": "Warfarin",
+        "RX-03": "Ibuprofen",
+        "RX-04": "Lisinopril",
+        "RX-05": "Amlodipine"
+    }
+}

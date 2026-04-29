@@ -1,0 +1,73 @@
+{
+    "hospital_id": "hospital_b",
+    "namespace": "http://hospital-b.org/clinical#",
+    "instance_namespace": "http://hospital-b.org/patient#",
+
+    "csv_files": {
+        "diseases": {
+            "entity_type": "Diagnosis",
+            "id_column": "code",
+            "columns": {
+                "name": { "property": "rdfs:label", "type": "literal" }
+            }
+        },
+        "drugs": {
+            "entity_type": "Medication",
+            "id_column": "code",
+            "columns": {
+                "name": { "property": "rdfs:label", "type": "literal" }
+            }
+        },
+        "foods": {
+            "entity_type": "NutritionEntry",
+            "id_column": "item",
+            "columns": {
+                "name": { "property": "rdfs:label", "type": "literal" }
+            }
+        },
+        "doctors": {
+            "entity_type": "ClinicalOfficer",
+            "id_column": "id",
+            "use_namespace_for_id": true,
+            "columns": {
+                "name":               { "property": "rdfs:label",       "type": "literal" },
+                "specialty":          { "property": "hasSpecialty",     "type": "literal" },
+                "consults_with_ref":  { "property": "consultsWith",    "type": "uri", "uri_namespace": "self" }
+            }
+        },
+        "patients": {
+            "entity_type": "ClinicalSubject",
+            "id_column": "ref",
+            "name_column": "name",
+            "name_format": "last_first",
+            "columns": {
+                "name":                   { "property": "Patient_Name",          "type": "literal", "transform": "last_first" },
+                "dob":                    { "property": "DOB",                   "type": "literal" },
+                "sex":                    { "property": "Sex",                   "type": "literal" },
+                "bmi":                    { "property": "BMI",                   "type": "float" },
+                "parent_ref":             { "property": "hasBiologicalParent",   "type": "instance_ref" },
+                "diagnosis_refs":         { "property": "hasDiagnosis",          "type": "ref", "multi": true },
+                "genetic_diagnosis_ref":  { "property": "hasGeneticDiagnosis",   "type": "ref" },
+                "medication_refs":        { "property": "onMedication",          "type": "ref", "multi": true },
+                "nutrition_ref":          { "property": "hasNutritionEntry",     "type": "ref" },
+                "care_of_ref":            { "property": "underCareOf",           "type": "uri", "uri_namespace": "self" },
+                "friend_ref":             { "property": "knowsPatient",          "type": "instance_ref" }
+            }
+        }
+    },
+
+    "terminology": {
+        "G10":    "HuntingtonsDisease",
+        "E11":    "AdultOnsetDiabetes",
+        "I10":    "EssentialHypertension",
+        "N18":    "ChronicRenalFailure",
+        "J45":    "BronchialAsthma",
+        "MED-01": "MetforminHydrochloride",
+        "MED-02": "AcetylsalicylicAcid",
+        "MED-03": "Ibuprofen",
+        "MED-04": "Lisinopril",
+        "MED-05": "Amlodipine",
+        "F-01":   "Grapefruit",
+        "F-02":   "GrapefruitJuice"
+    }
+}

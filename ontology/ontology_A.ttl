@@ -1,0 +1,123 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ehr:  <http://hospital-a.org/ehr#> .
+
+<http://hospital-a.org/ehr>
+    rdf:type owl:Ontology ;
+    rdfs:label "Hospital A - Electronic Health Record (EHR) Ontology" ;
+    rdfs:comment "A semantically rich local ontology structurally enforcing EHR documentation standards." .
+
+#CORE CLASSES & HIERARCHY
+
+ehr:Person rdf:type owl:Class ;
+    rdfs:label "Person" .
+
+ehr:EHR_Record rdf:type owl:Class ;
+    rdfs:subClassOf ehr:Person ;
+    owl:disjointWith ehr:MedicalPersonnel ;
+    rdfs:label "Electronic Health Record (Patient Profile)" .
+
+ehr:MedicalPersonnel rdf:type owl:Class ;
+    rdfs:subClassOf ehr:Person ;
+    rdfs:label "Medical Personnel" .
+
+ehr:AttendingPhysician rdf:type owl:Class ;
+    rdfs:subClassOf ehr:MedicalPersonnel ;
+    rdfs:label "Attending Physician" .
+
+ehr:ClinicalConcept rdf:type owl:Class ;
+    rdfs:label "Clinical Concept" .
+
+ehr:Condition rdf:type owl:Class ;
+    rdfs:subClassOf ehr:ClinicalConcept ;
+    rdfs:label "Medical Condition or Disease" .
+
+ehr:ChronicCondition rdf:type owl:Class ;
+    rdfs:subClassOf ehr:Condition ;
+    rdfs:label "Chronic Condition" .
+
+ehr:Intervention rdf:type owl:Class ;
+    rdfs:label "Medical Intervention" .
+
+ehr:Prescription rdf:type owl:Class ;
+    rdfs:subClassOf ehr:Intervention ;
+    rdfs:label "Prescription Medication" .
+
+
+#OBJECT PROPERTIES
+
+ehr:hasCondition rdf:type owl:ObjectProperty ;
+    rdfs:domain ehr:EHR_Record ;
+    rdfs:range ehr:Condition ;
+    rdfs:label "has condition" .
+
+ehr:hasPrescription rdf:type owl:ObjectProperty ;
+    rdfs:domain ehr:EHR_Record ;
+    rdfs:range ehr:Prescription ;
+    rdfs:label "has prescription" .
+
+ehr:seenBy rdf:type owl:ObjectProperty ;
+    rdfs:domain ehr:EHR_Record ;
+    rdfs:range ehr:AttendingPhysician ;
+    owl:inverseOf ehr:treatsPatient ;
+    rdfs:label "is seen by" .
+
+ehr:treatsPatient rdf:type owl:ObjectProperty ;
+    rdfs:domain ehr:AttendingPhysician ;
+    rdfs:range ehr:EHR_Record ;
+    owl:inverseOf ehr:seenBy ;
+    rdfs:label "treats patient" .
+
+# A property with transitivity (e.g. if A reliesOn B, and B reliesOn C, A reliesOn C)
+ehr:reliesOnColleague rdf:type owl:TransitiveProperty, owl:ObjectProperty ;
+    rdfs:domain ehr:MedicalPersonnel ;
+    rdfs:range ehr:MedicalPersonnel ;
+    rdfs:label "relies on specialist colleague" .
+
+
+# (NEW) GENETIC / FAMILY HISTORY 
+
+ehr:hasAncestor rdf:type owl:TransitiveProperty, owl:ObjectProperty ;
+    rdfs:domain ehr:EHR_Record ;
+    rdfs:range ehr:EHR_Record ;
+    rdfs:label "has biological ancestor" .
+
+ehr:hasParent rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf ehr:hasAncestor ;
+    rdfs:label "has biological parent" .
+
+ehr:hasGeneticCondition rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf ehr:hasCondition ;
+    rdfs:label "has confirmed genetic disease" .
+
+
+#DATA PROPERTIES
+ehr:PatientID rdf:type owl:DatatypeProperty ;
+    rdfs:domain ehr:EHR_Record ;
+    rdfs:range xsd:string .
+
+ehr:hasSpecialty rdf:type owl:DatatypeProperty ;
+    rdfs:domain ehr:MedicalPersonnel ;
+    rdfs:range xsd:string .
+
+ehr:FullName rdf:type owl:DatatypeProperty ;
+    rdfs:domain ehr:Person ;
+    rdfs:range xsd:string .
+
+ehr:DateOfBirth rdf:type owl:DatatypeProperty ;
+    rdfs:domain ehr:Person ;
+    rdfs:range xsd:string .
+
+ehr:DateOfBirth rdf:type owl:DatatypeProperty ;
+    rdfs:domain ehr:Person ;
+    rdfs:range xsd:string .
+
+ehr:Gender rdf:type owl:DatatypeProperty ;
+    rdfs:domain ehr:Person ;
+    rdfs:range xsd:string .
+
+ehr:BloodType rdf:type owl:DatatypeProperty ;
+    rdfs:domain ehr:EHR_Record ;
+    rdfs:range xsd:string .

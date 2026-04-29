@@ -1,0 +1,28 @@
+{
+    "hospital_id": "hospital_c",
+    "namespace": "http://hospital-c.org/med#",
+    "instance_namespace": "http://hospital-c.org/patient#",
+
+    "csv_files": {
+        "meds": {
+            "entity_type": "Drug",
+            "id_column": "code",
+            "columns": {
+                "name": { "property": "rdfs:label", "type": "literal" }
+            }
+        },
+        "patients": {
+            "entity_type": "MedicalRecord",
+            "id_column": "pid",
+            "name_column": "patient_name",
+            "columns": {
+                "patient_name":          { "property": "Name",              "type": "literal" },
+                "administered_meds":     { "property": "administeredDrug",  "type": "ref", "multi": true }
+            }
+        }
+    },
+
+    "terminology": {
+        "NPRX": "Naproxen"
+    }
+}

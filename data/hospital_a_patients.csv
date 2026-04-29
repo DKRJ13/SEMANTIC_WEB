@@ -1,0 +1,10 @@
+id,full_name,dob,parent_ref,condition_refs,genetic_condition_ref,prescription_refs,attending_physician_ref
+P-099,Genevieve Smith,1955-02-12,,,D-05,,
+P-105,Old Bob Johnson,1950-10-10,,,D-05,,DOC-A3
+P-101,Alice Smith,1985-06-14,P-099,D-01,,RX-01|RX-02,DOC-A1
+P-102,Bob Johnson,1972-11-03,P-105,D-02|D-03,,RX-04,DOC-A2
+P-103,Carol White,1990-08-22,,D-04,,RX-03,DOC-A1
+P-104,David Lee,1965-01-30,,D-02,,,DOC-A3
+P-106,Eve Carter,1988-04-15,,D-04,,,DOC-A2
+P-107,Frank Wright,1970-09-09,,D-01,,RX-01,DOC-A3
+P-200,Zara Khan,1993-03-17,P-099,D-02,,RX-02,DOC-A1

@@ -1,0 +1,153 @@
+<ClinicalDatabase>
+
+    <!-- MASTER TERMINOLOGY DIRECTORY -->
+    <Diseases>
+        <!-- Hospital B uses different IDs but same semantic meaning -->
+        <Disease code="G10"><Name>Huntington's chorea</Name></Disease>
+        <Disease code="E11"><Name>Adult-onset diabetes</Name></Disease>
+        <Disease code="I10"><Name>Essential hypertension</Name></Disease>
+        <Disease code="N18"><Name>Chronic renal failure</Name></Disease>
+        <Disease code="J45"><Name>Bronchial asthma</Name></Disease>
+    </Diseases>
+
+    <Drugs>
+        <Drug code="MED-01"><Name>Metformin Hydrochloride</Name></Drug>
+        <Drug code="MED-02"><Name>Acetylsalicylic Acid (Aspirin)</Name></Drug>
+        <Drug code="MED-03"><Name>Ibuprofen</Name></Drug>
+        <Drug code="MED-04"><Name>Lisinopril</Name></Drug>
+        <Drug code="MED-05"><Name>Amlodipine</Name></Drug>
+    </Drugs>
+    
+    <Foods>
+        <Food item="F-01"><Name>Grapefruit</Name></Food>
+        <Food item="F-02"><Name>Grapefruit Juice</Name></Food>
+    </Foods>
+
+    <!-- PROVIDER DIRECTORY -->
+    <ClinicalOfficers>
+        <!-- Cardiology Network -->
+        <Officer id="OFF-01">
+            <Name>Dr. Riya Patel</Name>
+            <Specialty>Cardiology</Specialty>
+            <ConsultsWithRef>OFF-05</ConsultsWithRef>
+        </Officer>
+        <Officer id="OFF-05">
+            <Name>Dr. Stephen Strange</Name>
+            <Specialty>Cardiology</Specialty>
+        </Officer>
+
+        <!-- Oncology / Neurology Network -->
+        <Officer id="OFF-02">
+            <Name>Dr. James Wilson</Name>
+            <Specialty>Oncology</Specialty>
+            <ConsultsWithRef>OFF-06</ConsultsWithRef>
+        </Officer>
+        <Officer id="OFF-06">
+            <Name>Dr. Robert Chase</Name>
+            <Specialty>Oncology</Specialty>
+        </Officer>
+
+        <!-- Endocrinology Network -->
+        <Officer id="OFF-03">
+            <Name>Dr. Lisa Cuddy</Name>
+            <Specialty>Endocrinology</Specialty>
+            <ConsultsWithRef>OFF-07</ConsultsWithRef>
+        </Officer>
+        <Officer id="OFF-07">
+            <Name>Dr. Allison Cameron</Name>
+            <Specialty>Endocrinology</Specialty>
+        </Officer>
+
+        <!-- Primary Care Network (Crosses over to Hosp A!) -->
+        <Officer id="OFF-04">
+            <Name>Dr. Sarah Connor</Name>
+            <Specialty>Primary Care</Specialty>
+            <ConsultsWithRef>OFF-08</ConsultsWithRef>
+        </Officer>
+        <Officer id="OFF-08">
+            <Name>Dr. Chris Taub</Name>
+            <Specialty>Primary Care</Specialty>
+        </Officer>
+    </ClinicalOfficers>
+
+    <!-- PATIENT DIRECTORY -->
+    <ClinicalSubjects>
+        
+        <!-- Generation 1 -->
+        <Subject ref="AJ-1950-001">
+            <Name>Johnson, Arthur</Name>
+            <DOB>10/10/1950</DOB>
+            <Sex>M</Sex>
+            <GeneticDiagnosisRef>G10</GeneticDiagnosisRef>
+            <UnderCareOfRef>OFF-02</UnderCareOfRef>
+        </Subject>
+
+        <!-- Generation 2 -->
+        <!-- Alice Smith overlaps with Hospital A -->
+        <Subject ref="AS-2024-001">
+            <Name>Smith, Alice</Name>
+            <DOB>14/06/1985</DOB>
+            <Sex>F</Sex>
+            <BMI>28.5</BMI>
+            <DiagnosisRef>E11</DiagnosisRef>
+            <NutritionRef>F-01</NutritionRef>
+            <UnderCareOfRef>OFF-04</UnderCareOfRef>
+            <FriendRef>ET-2024-003</FriendRef> <!-- Friends with Emily -->
+        </Subject>
+
+        <!-- Bob Johnson overlaps with Hospital A -->
+        <Subject ref="BJ-2024-002">
+            <Name>Johnson, Bob</Name>
+            <DOB>03/11/1972</DOB>
+            <Sex>M</Sex>
+            <BMI>31.2</BMI>
+            <BiologicalParentRef>AJ-1950-001</BiologicalParentRef>
+            <DiagnosisRef>I10</DiagnosisRef>
+            <DiagnosisRef>N18</DiagnosisRef>
+            <MedicationRef>MED-02</MedicationRef>
+            <MedicationRef>MED-04</MedicationRef>
+            <UnderCareOfRef>OFF-01</UnderCareOfRef> <!-- Cardiology -->
+        </Subject>
+        
+        <Subject ref="ET-2024-003">
+            <Name>Turner, Emily</Name>
+            <DOB>22/08/1990</DOB>
+            <Sex>F</Sex>
+            <BMI>24.1</BMI>
+            <DiagnosisRef>J45</DiagnosisRef>
+            <MedicationRef>MED-03</MedicationRef>
+            <UnderCareOfRef>OFF-04</UnderCareOfRef>  <!-- Primary Care -->
+            <FriendRef>AS-2024-001</FriendRef> 
+        </Subject>
+
+        <Subject ref="MK-2024-004">
+            <Name>Kumar, Mohan</Name>
+            <DOB>30/01/1965</DOB>
+            <Sex>M</Sex>
+            <DiagnosisRef>I10</DiagnosisRef>
+            <MedicationRef>MED-05</MedicationRef>
+            <NutritionRef>F-02</NutritionRef>
+            <UnderCareOfRef>OFF-03</UnderCareOfRef>
+        </Subject>
+        
+        <Subject ref="LN-2024-005">
+            <Name>Nguyen, Liam</Name>
+            <DOB>12/12/1980</DOB>
+            <Sex>M</Sex>
+            <DiagnosisRef>E11</DiagnosisRef>
+            <MedicationRef>MED-01</MedicationRef>
+            <UnderCareOfRef>OFF-01</UnderCareOfRef>
+        </Subject>
+
+        <Subject ref="SO-2024-006">
+            <Name>Olsen, Sarah</Name>
+            <DOB>05/05/1995</DOB>
+            <Sex>F</Sex>
+            <DiagnosisRef>J45</DiagnosisRef>
+            <UnderCareOfRef>OFF-03</UnderCareOfRef>
+            <FriendRef>MK-2024-004</FriendRef>
+        </Subject>
+
+    </ClinicalSubjects>
+
+</ClinicalDatabase>

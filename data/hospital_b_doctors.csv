@@ -1,0 +1,9 @@
+id,name,specialty,consults_with_ref
+OFF-01,Dr. Riya Patel,Cardiology,OFF-05
+OFF-05,Dr. Stephen Strange,Cardiology,
+OFF-02,Dr. James Wilson,Oncology,OFF-06
+OFF-06,Dr. Robert Chase,Oncology,
+OFF-03,Dr. Lisa Cuddy,Endocrinology,OFF-07
+OFF-07,Dr. Allison Cameron,Endocrinology,
+OFF-04,Dr. Sarah Connor,Primary Care,OFF-08
+OFF-08,Dr. Chris Taub,Primary Care,

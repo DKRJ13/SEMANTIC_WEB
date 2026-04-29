@@ -1,0 +1,61 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+@prefix sct:  <http://snomed.info/id/> .
+
+<http://medonto.org/snomed-rules>
+    rdf:type owl:Ontology ;
+    owl:imports <http://snomed.info/id/core> .
+
+# ──────────────────────────────────────────────
+#  CORE SNOMED PROPERTIES
+# ──────────────────────────────────────────────
+
+sct:hasBiologicalParent rdf:type owl:ObjectProperty .
+
+sct:hasBiologicalAncestor rdf:type owl:TransitiveProperty, owl:ObjectProperty .
+
+sct:hasGeneticDisease rdf:type owl:ObjectProperty .
+
+sct:hasRiskOfGeneticDisease rdf:type owl:ObjectProperty ;
+    # RULE: If Patient A -> hasBiologicalAncestor -> Patient B -> hasGeneticDisease -> Disease X
+    # Then Patient A -> hasRiskOfGeneticDisease -> Disease X
+    owl:propertyChainAxiom ( sct:hasBiologicalAncestor sct:hasGeneticDisease ) .
+
+# ──────────────────────────────────────────────
+#  REASONER RULES (Cross-Hospital Inferences)
+# ──────────────────────────────────────────────
+
+# Rule 1: Warfarin (372804008) + Grapefruit (110540003) -> Bleeding Risk
+sct:BleedingRiskPatient rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            sct:125676002 # Patient
+            [ rdf:type owl:Restriction ; owl:onProperty sct:prescribedTo ; owl:someValuesFrom sct:372804008 ]
+            [ rdf:type owl:Restriction ; owl:onProperty sct:consumes     ; owl:someValuesFrom sct:110540003 ]
+        )
+    ] .
+
+# Rule 2: Amlodipine (372605008) + Grapefruit (110540003) -> Hypotension Risk
+sct:HypotensionRiskPatient rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            sct:125676002 # Patient
+            [ rdf:type owl:Restriction ; owl:onProperty sct:prescribedTo ; owl:someValuesFrom sct:372605008 ]
+            [ rdf:type owl:Restriction ; owl:onProperty sct:consumes     ; owl:someValuesFrom sct:110540003 ]
+        )
+    ] .
+
+# Rule 3: NSAID (397156001) + Asthma (195967001) -> Bronchospasm Risk
+sct:BronchospasmRiskPatient rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            sct:125676002 # Patient
+            [ rdf:type owl:Restriction ; owl:onProperty sct:prescribedTo   ; owl:someValuesFrom sct:397156001 ]
+            [ rdf:type owl:Restriction ; owl:onProperty sct:associatedWith ; owl:someValuesFrom sct:195967001 ]
+        )
+    ] .

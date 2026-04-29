@@ -1,0 +1,7 @@
+id,name,specialty,relies_on_ref
+DOC-A1,Dr. Sarah Connor,Primary Care,DOC-A5
+DOC-A5,Dr. Chris Taub,Primary Care,
+DOC-A2,Dr. Eric Foreman,Cardiology,DOC-A6
+DOC-A6,Dr. Stephen Strange,Cardiology,
+DOC-A3,Dr. Lisa Cuddy,Endocrinology,DOC-A7
+DOC-A7,Dr. Allison Cameron,Endocrinology,

@@ -1,0 +1,22 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix medc: <http://hospital-c.org/med#> .
+
+<http://hospital-c.org/med>
+    rdf:type owl:Ontology .
+
+# ──────────────────────────────────────────────
+#  CORE CLASSES & PROPERTIES
+# ──────────────────────────────────────────────
+
+medc:MedicalRecord rdf:type owl:Class .
+medc:Drug          rdf:type owl:Class .
+
+medc:Name rdf:type owl:DatatypeProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range rdfs:Literal .
+
+medc:administeredDrug rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:Drug .

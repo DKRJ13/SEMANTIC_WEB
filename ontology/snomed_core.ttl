@@ -1,0 +1,143 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# SNOMED CT namespace
+@prefix sct:  <http://snomed.info/id/> .
+
+#  SNOMED CT SUBSET
+#  This file acts as the GLOBAL STANDARD for the project.
+#  It contains a small part of the real SNOMED CT taxonomy,
+#  using real SCTID codes for our diseases and drugs.
+
+<http://snomed.info/id/core>
+    rdf:type owl:Ontology ;
+    rdfs:label "SNOMED CT Subset" ;
+    rdfs:comment "A lightweight simulation of SNOMED CT using real SCTIDs for integration." .
+
+#  TOP-LEVEL SNOMED CONCEPTS
+
+# 404684003 = Clinical finding (SNOMED's root for diseases)
+sct:404684003 rdf:type owl:Class ;
+    rdfs:label "Clinical finding (Disease)" .
+
+# 373873005 = Pharmaceutical / biologic product (Root for drugs)
+sct:373873005 rdf:type owl:Class ;
+    rdfs:label "Pharmaceutical / biologic product" .
+
+# 125676002 = Person (Root class for patients)
+sct:125676002 rdf:type owl:Class ;
+    rdfs:label "Person (Patient/Subject)" .
+
+# Food / Nutrients
+sct:105590001 rdf:type owl:Class ;
+    rdfs:label "Substance (Food)" .
+
+
+#  DISEASE HIERARCHY (SNOMED subset)
+
+# Metabolic diseases
+sct:73211009 rdf:type owl:Class ;
+    rdfs:subClassOf sct:404684003 ;
+    rdfs:label "Diabetes mellitus" .
+
+# Cardiovascular
+sct:38341003 rdf:type owl:Class ;
+    rdfs:subClassOf sct:404684003 ;
+    rdfs:label "Hypertension" .
+
+sct:32895009 rdf:type owl:Class ;
+    rdfs:subClassOf sct:404684003 ;
+    rdfs:label "Hereditary disease" .
+
+sct:58756001 rdf:type owl:Class ;
+    rdfs:subClassOf sct:32895009 ;
+    rdfs:label "Huntington's chorea (disorder)" .
+
+# Respiratory
+sct:195967001 rdf:type owl:Class ;
+    rdfs:subClassOf sct:404684003 ;
+    rdfs:label "Asthma" .
+
+# Renal
+sct:709044004 rdf:type owl:Class ;
+    rdfs:subClassOf sct:404684003 ;
+    rdfs:label "Chronic kidney disease" .
+
+
+#  DRUG HIERARCHY (SNOMED subset)
+
+# Non-steroidal anti-inflammatory drug (NSAID) - Parent class
+sct:397156001 rdf:type owl:Class ;
+    rdfs:subClassOf sct:373873005 ;
+    rdfs:label "NSAID (Non-steroidal anti-inflammatory drug)" .
+
+# Aspirin (Product) -> IS A -> NSAID
+sct:7947003 rdf:type owl:Class ;
+    rdfs:subClassOf sct:397156001 ;
+    rdfs:label "Aspirin" .
+
+# Ibuprofen (Product) -> IS A -> NSAID
+sct:387207008 rdf:type owl:Class ;
+    rdfs:subClassOf sct:397156001 ;
+    rdfs:label "Ibuprofen" .
+
+# Other Drugs
+sct:372804008 rdf:type owl:Class ;
+    rdfs:subClassOf sct:373873005 ;
+    rdfs:label "Warfarin" .
+
+sct:372567009 rdf:type owl:Class ;
+    rdfs:subClassOf sct:373873005 ;
+    rdfs:label "Metformin" .
+
+sct:372706001 rdf:type owl:Class ;
+    rdfs:subClassOf sct:373873005 ;
+    rdfs:label "Lisinopril" .
+
+sct:387353006 rdf:type owl:Class ;
+    rdfs:subClassOf sct:373873005 ;
+    rdfs:label "Salbutamol" .
+
+sct:372605008 rdf:type owl:Class ;
+    rdfs:subClassOf sct:373873005 ;
+    rdfs:label "Amlodipine" .
+
+
+#  FOODS
+
+sct:110540003 rdf:type owl:Class ;
+    rdfs:subClassOf sct:105590001 ;
+    rdfs:label "Grapefruit" .
+
+
+#  PROPERTIES
+
+sct:associatedWith rdf:type owl:ObjectProperty ;
+    rdfs:label "has clinical finding" .
+
+sct:prescribedTo rdf:type owl:ObjectProperty ;
+    rdfs:label "is prescribed product" .
+
+sct:consumes rdf:type owl:ObjectProperty ;
+    rdfs:label "consumes substance" .
+
+sct:hasRisk rdf:type owl:ObjectProperty ;
+    rdfs:label "has interaction risk" .
+
+# Interaction Alert Classes (Custom for our rules, attached to SNOMED root)
+sct:InteractionAlert rdf:type owl:Class ;
+    rdfs:label "Dangerous Interaction Risk" .
+
+sct:BleedingRisk rdf:type owl:Class ;
+    rdfs:subClassOf sct:InteractionAlert ;
+    rdfs:label "Bleeding Risk (Warfarin + Grapefruit)" .
+
+sct:HypotensionRisk rdf:type owl:Class ;
+    rdfs:subClassOf sct:InteractionAlert ;
+    rdfs:label "Hypotension Risk (Amlodipine + Grapefruit)" .
+
+sct:BronchospasmRisk rdf:type owl:Class ;
+    rdfs:subClassOf sct:InteractionAlert ;
+    rdfs:label "Bronchospasm Risk (NSAID + Asthma)" .

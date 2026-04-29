@@ -1,0 +1,159 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix clin: <http://hospital-b.org/clinical#> .
+
+<http://hospital-b.org/clinical>
+    rdf:type owl:Ontology ;
+    rdfs:label "Hospital B - Clinical & Trial Data Ontology" ;
+    rdfs:comment "A semantically rich clinical ontology with domain/range constraints and disjoint classes." .
+
+# CORE CLASSES & HIERARCHY
+
+clin:ClinicalEntity rdf:type owl:Class ;
+    rdfs:label "Base Clinical Entity" .
+
+clin:Human rdf:type owl:Class ;
+    rdfs:subClassOf clin:ClinicalEntity ;
+    rdfs:label "Human Being" .
+
+clin:ClinicalSubject rdf:type owl:Class ;
+    rdfs:subClassOf clin:Human ;
+    owl:disjointWith clin:ClinicalStaff ; # A patient cannot be their own doctor in this trial
+    rdfs:label "Clinical Trial Subject / Patient" .
+
+clin:ClinicalStaff rdf:type owl:Class ;
+    rdfs:subClassOf clin:Human ;
+    rdfs:label "Clinical Staff Member" .
+
+clin:ClinicalOfficer rdf:type owl:Class ;
+    rdfs:subClassOf clin:ClinicalStaff ;
+    rdfs:label "Clinical Officer / NP" .
+
+clin:Specialist rdf:type owl:Class ;
+    rdfs:subClassOf clin:ClinicalStaff ;
+    rdfs:label "Medical Specialist" .
+
+clin:Observation rdf:type owl:Class ;
+    rdfs:subClassOf clin:ClinicalEntity ;
+    rdfs:label "Clinical Observation" .
+
+clin:Diagnosis rdf:type owl:Class ;
+    rdfs:subClassOf clin:Observation ;
+    rdfs:label "Confirmed Diagnosis" .
+
+clin:LabResult rdf:type owl:Class ;
+    rdfs:subClassOf clin:Observation ;
+    rdfs:label "Laboratory Test Result" .
+
+clin:Regimen rdf:type owl:Class ;
+    rdfs:subClassOf clin:ClinicalEntity ;
+    rdfs:label "Patient Regimen" .
+
+clin:Medication rdf:type owl:Class ;
+    rdfs:subClassOf clin:Regimen ;
+    rdfs:label "Active Medication" .
+
+clin:NutritionEntry rdf:type owl:Class ;
+    rdfs:subClassOf clin:Regimen ;
+    owl:disjointWith clin:Medication ; # Food is strictly separated from Medicine
+    rdfs:label "Dietary / Nutrition Log Entry" .
+
+
+# OBJECT PROPERTIES
+
+clin:hasDiagnosis rdf:type owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:Diagnosis ;
+    rdfs:label "has confirmed diagnosis" .
+
+clin:onMedication rdf:type owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:Medication ;
+    rdfs:label "is currently taking medication" .
+
+clin:hasNutritionEntry rdf:type owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:NutritionEntry ;
+    rdfs:label "consumed nutritional item" .
+
+clin:underCareOf rdf:type owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:ClinicalStaff ;
+    owl:inverseOf clin:caresFor ; # The inverse relationship
+    rdfs:label "is under the primary care of" .
+
+clin:caresFor rdf:type owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalStaff ;
+    rdfs:range clin:ClinicalSubject ;
+    owl:inverseOf clin:underCareOf ;
+    rdfs:label "provides care for" .
+
+clin:consultsWith rdf:type owl:SymmetricProperty, owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalStaff ;
+    rdfs:range clin:ClinicalStaff ;
+    rdfs:label "consults with peer safely (symmetric)" . # If A consults B, B consults A
+
+clin:knowsPatient rdf:type owl:SymmetricProperty, owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:ClinicalSubject ;
+    rdfs:label "is friends with another patient" .
+
+# (NEW) GENETIC / FAMILY HISTORY
+
+clin:hasBiologicalAncestor rdf:type owl:TransitiveProperty, owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:ClinicalSubject ;
+    rdfs:label "biological ancestor" .
+
+clin:hasBiologicalParent rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf clin:hasBiologicalAncestor ;
+    rdfs:label "biological parent" .
+
+clin:hasGeneticDiagnosis rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf clin:hasDiagnosis ;
+    rdfs:label "confirmed genetic diagnosis" .
+
+
+clin:eligibleForSecondOpinionFrom rdf:type owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:ClinicalStaff ;
+    rdfs:label "eligible for second opinion from" ;
+    # RULE 1: If Patient -> underCareOf -> Doctor A -> consultsWith -> Doctor B
+    # Then Patient -> eligibleForSecondOpinionFrom -> Doctor B
+    owl:propertyChainAxiom ( clin:underCareOf clin:consultsWith ) .
+
+clin:eligibleForPeerSecondOpinionFrom rdf:type owl:ObjectProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range clin:ClinicalStaff ;
+    rdfs:label "eligible for peer network second opinion" ;
+    # RULE 2: If Patient A -> knowsPatient -> Patient B -> underCareOf -> Doctor C
+    # Then Patient A -> eligibleForPeerSecondOpinionFrom -> Doctor C
+    owl:propertyChainAxiom ( clin:knowsPatient clin:underCareOf ) .
+
+# DATA PROPERTIES
+
+clin:Subject_Ref rdf:type owl:DatatypeProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range xsd:string .
+
+clin:Patient_Name rdf:type owl:DatatypeProperty ;
+    rdfs:domain clin:Human ;
+    rdfs:range xsd:string .
+
+clin:DOB rdf:type owl:DatatypeProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range xsd:string .
+
+clin:hasSpecialty rdf:type owl:DatatypeProperty ;
+    rdfs:domain clin:ClinicalOfficer ;
+    rdfs:range xsd:string .
+
+clin:Sex rdf:type owl:DatatypeProperty ;
+    rdfs:domain clin:Human ;
+    rdfs:range xsd:string .
+
+clin:BMI rdf:type owl:DatatypeProperty ;
+    rdfs:domain clin:ClinicalSubject ;
+    rdfs:range xsd:float .

@@ -1,0 +1,9 @@
+ref,name,dob,sex,bmi,parent_ref,diagnosis_refs,genetic_diagnosis_ref,medication_refs,nutrition_ref,care_of_ref,friend_ref
+AJ-1950-001,"Johnson, Arthur",10/10/1950,M,,,,,G10,,OFF-02,
+AS-2024-001,"Smith, Alice",14/06/1985,F,28.5,,E11,,,,OFF-04,ET-2024-003
+BJ-2024-002,"Johnson, Bob",03/11/1972,M,31.2,AJ-1950-001,I10|N18,,MED-02|MED-04,,OFF-01,
+ET-2024-003,"Turner, Emily",22/08/1990,F,24.1,,J45,,MED-03,,OFF-04,AS-2024-001
+MK-2024-004,"Kumar, Mohan",30/01/1965,M,,,I10,,MED-05,F-02,OFF-03,
+LN-2024-005,"Nguyen, Liam",12/12/1980,M,,,E11,,MED-01,,OFF-01,
+SO-2024-006,"Olsen, Sarah",05/05/1995,F,,,J45,,,,OFF-03,MK-2024-004
+ZK-2024-007,"Khan, Zara",17/03/1993,F,25.0,,I10,,,F-01,OFF-01,AS-2024-001

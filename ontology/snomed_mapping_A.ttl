@@ -1,0 +1,47 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+@prefix ehr:  <http://hospital-a.org/ehr#> .
+@prefix sct:  <http://snomed.info/id/> .
+
+<http://medonto.org/snomed-mapping-A>
+    rdf:type owl:Ontology ;
+    owl:imports <http://hospital-a.org/ehr> ;
+    owl:imports <http://snomed.info/id/core> .
+
+# ──────────────────────────────────────────────
+#  CLASS MAPPINGS (Hospital A -> SNOMED)
+# ──────────────────────────────────────────────
+
+ehr:EHR_Record      owl:equivalentClass sct:125676002 . # Patient
+ehr:Condition       owl:equivalentClass sct:404684003 . # Disease
+ehr:Prescription    owl:equivalentClass sct:373873005 . # Drug
+
+# ──────────────────────────────────────────────
+#  PROPERTY MAPPINGS (Hospital A -> SNOMED)
+# ──────────────────────────────────────────────
+
+ehr:hasCondition           owl:equivalentProperty sct:associatedWith .
+ehr:hasPrescription        owl:equivalentProperty sct:prescribedTo .
+ehr:hasParent              owl:equivalentProperty sct:hasBiologicalParent .
+ehr:hasAncestor            owl:equivalentProperty sct:hasBiologicalAncestor .
+ehr:hasGeneticCondition    owl:equivalentProperty sct:hasGeneticDisease .
+
+# ──────────────────────────────────────────────
+#  INSTANCE MAPPINGS (Hospital A Entities -> SNOMED)
+# ──────────────────────────────────────────────
+
+# Diseases
+ehr:DiabetesType2        rdf:type sct:73211009 .
+ehr:Hypertension         rdf:type sct:38341003 .
+ehr:ChronicKidneyDisease rdf:type sct:709044004 .
+ehr:Asthma               rdf:type sct:195967001 .
+ehr:Huntingtons          rdf:type sct:58756001 .
+
+# Drugs
+ehr:Aspirin              rdf:type sct:7947003 .
+ehr:Ibuprofen            rdf:type sct:387207008 .
+ehr:Warfarin             rdf:type sct:372804008 .
+ehr:Metformin            rdf:type sct:372567009 .
+ehr:Lisinopril           rdf:type sct:372706001 .
+ehr:Salbutamol           rdf:type sct:387353006 .
