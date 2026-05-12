@@ -44,3 +44,11 @@ QUERY 2: Find all Diabetics (Cross-Hospital SNOMED Lookup)
 ```
 
 The system is now fully automated, based strictly on OWL Logic, capable of inferring massive complex relationships across disparate data silos simultaneously.
+
+## 4. Expanding Hospital C (Recent Update)
+We expanded `ontology_C.ttl` into a highly dense semantic layer, matching the complexity of Hospitals A and B.
+* **Deep Hierarchies & Disjoints**: Added multi-level class branching (`medc:Person` -> `medc:MedicalRecord` / `medc:HealthcareProvider` [disjoint]) and categorized interventions.
+* **Complex Properties**: Implemented inverse relationships (`treatedBy` vs `managesCase`), transitive properties (`descendsFrom`), and symmetric properties (`sharesRoomWith`, `consultsSpecialist`).
+* **Property Chain Rules**: Defined dynamic inference chains such as `medc:eligibleForSpecialistReview` (derived from `treatedBy` + `refersTo`).
+* **Global Interoperability**: Updated `snomed_mapping_C.ttl` to ensure the new terms (`medc:descendsFrom`, `medc:hasHereditaryIllness`) perfectly align with SNOMED standards.
+* **Verification**: Ran `csv_ingest.py`. The HermiT reasoner seamlessly bridged all three hospitals, unifying `ehr:hasAncestor`, `clin:hasBiologicalAncestor`, and `medc:descendsFrom` into a single logical concept without any failure.
