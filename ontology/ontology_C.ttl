@@ -1,22 +1,165 @@
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix medc: <http://hospital-c.org/med#> .
 
 <http://hospital-c.org/med>
-    rdf:type owl:Ontology .
+    rdf:type owl:Ontology ;
+    rdfs:label "Hospital C - Medical Ontology" ;
+    rdfs:comment "A highly dense local ontology for Hospital C featuring complex class hierarchies, disjoints, and property chains." .
 
 # ──────────────────────────────────────────────
-#  CORE CLASSES & PROPERTIES
+#  CORE CLASSES & HIERARCHY
 # ──────────────────────────────────────────────
 
-medc:MedicalRecord rdf:type owl:Class .
-medc:Drug          rdf:type owl:Class .
+medc:Entity rdf:type owl:Class ;
+    rdfs:label "Base Hospital C Entity" .
+
+medc:Person rdf:type owl:Class ;
+    rdfs:subClassOf medc:Entity ;
+    rdfs:label "Person" .
+
+medc:MedicalRecord rdf:type owl:Class ;
+    rdfs:subClassOf medc:Person ;
+    owl:disjointWith medc:HealthcareProvider ;
+    rdfs:label "Medical Record (Patient)" .
+
+medc:HealthcareProvider rdf:type owl:Class ;
+    rdfs:subClassOf medc:Person ;
+    rdfs:label "Healthcare Provider" .
+
+medc:PrimaryCarePhysician rdf:type owl:Class ;
+    rdfs:subClassOf medc:HealthcareProvider ;
+    rdfs:label "Primary Care Physician" .
+
+medc:ConsultingSpecialist rdf:type owl:Class ;
+    rdfs:subClassOf medc:HealthcareProvider ;
+    rdfs:label "Consulting Specialist" .
+
+medc:MedicalObservation rdf:type owl:Class ;
+    rdfs:subClassOf medc:Entity ;
+    rdfs:label "Medical Observation" .
+
+medc:ConfirmedIllness rdf:type owl:Class ;
+    rdfs:subClassOf medc:MedicalObservation ;
+    rdfs:label "Confirmed Illness" .
+
+medc:VitalSign rdf:type owl:Class ;
+    rdfs:subClassOf medc:MedicalObservation ;
+    rdfs:label "Vital Sign" .
+
+medc:Therapy rdf:type owl:Class ;
+    rdfs:subClassOf medc:Entity ;
+    rdfs:label "Medical Therapy" .
+
+medc:Drug rdf:type owl:Class ;
+    rdfs:subClassOf medc:Therapy ;
+    owl:disjointWith medc:SurgicalProcedure ;
+    rdfs:label "Administered Drug" .
+
+medc:SurgicalProcedure rdf:type owl:Class ;
+    rdfs:subClassOf medc:Therapy ;
+    rdfs:label "Surgical Procedure" .
+
+# ──────────────────────────────────────────────
+#  OBJECT PROPERTIES
+# ──────────────────────────────────────────────
+
+medc:suffersFrom rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:ConfirmedIllness ;
+    rdfs:label "suffers from illness" .
+
+medc:administeredDrug rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:Drug ;
+    rdfs:label "was administered drug" .
+
+medc:undergoesSurgery rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:SurgicalProcedure ;
+    rdfs:label "undergoes surgical procedure" .
+
+medc:treatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:HealthcareProvider ;
+    owl:inverseOf medc:managesCase ;
+    rdfs:label "is treated by provider" .
+
+medc:managesCase rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:HealthcareProvider ;
+    rdfs:range medc:MedicalRecord ;
+    owl:inverseOf medc:treatedBy ;
+    rdfs:label "manages patient case" .
+
+medc:refersTo rdf:type owl:TransitiveProperty, owl:ObjectProperty ;
+    rdfs:domain medc:HealthcareProvider ;
+    rdfs:range medc:HealthcareProvider ;
+    rdfs:label "refers patient to colleague (transitive)" .
+
+medc:sharesRoomWith rdf:type owl:SymmetricProperty, owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:MedicalRecord ;
+    rdfs:label "shares hospital room with (symmetric)" .
+
+# ──────────────────────────────────────────────
+#  GENETIC / FAMILY HISTORY PROPERTIES
+# ──────────────────────────────────────────────
+
+medc:descendsFrom rdf:type owl:TransitiveProperty, owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:MedicalRecord ;
+    rdfs:label "descends from ancestor" .
+
+medc:hasBiologicalMotherOrFather rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf medc:descendsFrom ;
+    rdfs:label "has biological mother or father" .
+
+medc:hasHereditaryIllness rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf medc:suffersFrom ;
+    rdfs:label "has hereditary confirmed illness" .
+
+# ──────────────────────────────────────────────
+#  PROPERTY CHAINS (RULES)
+# ──────────────────────────────────────────────
+
+medc:eligibleForSpecialistReview rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:HealthcareProvider ;
+    rdfs:label "eligible for specialist review" ;
+    owl:propertyChainAxiom ( medc:treatedBy medc:refersTo ) .
+
+medc:peerReviewOpportunity rdf:type owl:ObjectProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range medc:HealthcareProvider ;
+    rdfs:label "peer review opportunity via roommate" ;
+    owl:propertyChainAxiom ( medc:sharesRoomWith medc:treatedBy ) .
+
+# ──────────────────────────────────────────────
+#  DATA PROPERTIES
+# ──────────────────────────────────────────────
 
 medc:Name rdf:type owl:DatatypeProperty ;
     rdfs:domain medc:MedicalRecord ;
     rdfs:range rdfs:Literal .
 
-medc:administeredDrug rdf:type owl:ObjectProperty ;
+medc:Age rdf:type owl:DatatypeProperty ;
+    rdfs:domain medc:Person ;
+    rdfs:range xsd:integer .
+
+medc:Gender rdf:type owl:DatatypeProperty ;
+    rdfs:domain medc:Person ;
+    rdfs:range xsd:string .
+
+medc:PatientID rdf:type owl:DatatypeProperty ;
     rdfs:domain medc:MedicalRecord ;
-    rdfs:range medc:Drug .
+    rdfs:range xsd:string .
+
+medc:ProviderID rdf:type owl:DatatypeProperty ;
+    rdfs:domain medc:HealthcareProvider ;
+    rdfs:range xsd:string .
+
+medc:BloodPressure rdf:type owl:DatatypeProperty ;
+    rdfs:domain medc:MedicalRecord ;
+    rdfs:range xsd:string .

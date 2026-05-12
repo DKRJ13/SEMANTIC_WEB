@@ -54,10 +54,10 @@ PREFIX clin: <http://hospital-b.org/clinical#>
 PREFIX ehr: <http://hospital-a.org/ehr#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT DISTINCT ?patientName ?doctorName ?specialty WHERE {
-    ?patient a ehr:EHR_Record .
+SELECT DISTINCT ?patient ?patientName ?doctorName ?specialty WHERE {
+    { ?patient a ehr:EHR_Record } UNION { ?patient a clin:ClinicalSubject }
     ?patient clin:eligibleForSecondOpinionFrom ?doctor .
-    ?patient ehr:FullName ?patientName .
+    { ?patient ehr:FullName ?patientName } UNION { ?patient clin:Patient_Name ?patientName }
     ?doctor rdfs:label ?doctorName .
     { ?doctor ehr:hasSpecialty ?specialty } UNION { ?doctor clin:hasSpecialty ?specialty }
 }"""

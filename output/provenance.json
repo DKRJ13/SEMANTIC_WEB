@@ -54,12 +54,12 @@
     "hospital_a_patients.csv"
   ],
   "http://unified.org/patient#Alice_Smith": [
-    "hospital_a_patients.csv",
-    "hospital_b_patients.csv"
+    "hospital_b_patients.csv",
+    "hospital_a_patients.csv"
   ],
   "http://unified.org/patient#Bob_Johnson": [
-    "hospital_a_patients.csv",
-    "hospital_b_patients.csv"
+    "hospital_b_patients.csv",
+    "hospital_a_patients.csv"
   ],
   "http://unified.org/patient#Carol_White": [
     "hospital_a_patients.csv"
@@ -68,15 +68,22 @@
     "hospital_a_patients.csv"
   ],
   "http://unified.org/patient#Eve_Carter": [
-    "hospital_a_patients.csv",
-    "hospital_c_patients.csv"
+    "hospital_c_patients.csv",
+    "hospital_a_patients.csv"
   ],
   "http://unified.org/patient#Frank_Wright": [
     "hospital_a_patients.csv"
   ],
   "http://unified.org/patient#Zara_Khan": [
-    "hospital_a_patients.csv",
-    "hospital_b_patients.csv"
+    "hospital_b_patients.csv",
+    "hospital_a_patients.csv"
+  ],
+  "http://unified.org/patient#Demo_Patient_OnlyA": [
+    "hospital_a_patients.csv"
+  ],
+  "http://unified.org/patient#Demo_Patient_BothAB": [
+    "hospital_b_patients.csv",
+    "hospital_a_patients.csv"
   ],
   "http://hospital-b.org/patient#G10": [
     "hospital_b_diseases.csv"

@@ -7,16 +7,12 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 >
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-03">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. Lisa Cuddy</rdfs:label>
-    <clin:hasSpecialty>Endocrinology</clin:hasSpecialty>
-    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-07"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Specialist">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:label>Medical Specialist</rdfs:label>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#onMedication">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#Medication"/>
+    <rdfs:label>is currently taking medication</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://hospital-b.org/clinical#Diagnosis">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -24,144 +20,57 @@
     <rdfs:label>Confirmed Diagnosis</rdfs:label>
     <owl:equivalentClass rdf:resource="http://snomed.info/id/404684003"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasCondition">
+  <rdf:Description rdf:about="http://unified.org/patient#Eve_Carter">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdf:type rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <ehr:FullName>Eve Carter</ehr:FullName>
+    <ehr:DateOfBirth>1988-04-15</ehr:DateOfBirth>
+    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Asthma"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A2"/>
+    <medc:Name>Eve Carter</medc:Name>
+    <medc:administeredDrug rdf:resource="http://hospital-c.org/med#Naproxen"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/125676002">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Person (Patient/Subject)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasPrescription">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdfs:range rdf:resource="http://hospital-a.org/ehr#Condition"/>
-    <rdfs:label>has condition</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/associatedWith"/>
+    <rdfs:range rdf:resource="http://hospital-a.org/ehr#Prescription"/>
+    <rdfs:label>has prescription</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Zara_Khan">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#reliesOnColleague">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:range rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>relies on specialist colleague</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://hospital-b.org/clinical#consultsWith"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Sarah_Olsen">
     <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <ehr:FullName>Zara Khan</ehr:FullName>
-    <ehr:DateOfBirth>1993-03-17</ehr:DateOfBirth>
-    <ehr:hasParent rdf:resource="http://hospital-a.org/patient#P_099"/>
-    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Hypertension"/>
-    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Warfarin"/>
-    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A1"/>
-    <clin:Patient_Name>Zara Khan</clin:Patient_Name>
-    <clin:DOB>17/03/1993</clin:DOB>
+    <clin:Patient_Name>Sarah Olsen</clin:Patient_Name>
+    <clin:DOB>05/05/1995</clin:DOB>
     <clin:Sex>F</clin:Sex>
-    <clin:BMI rdf:datatype="http://www.w3.org/2001/XMLSchema#float">25.0</clin:BMI>
-    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#EssentialHypertension"/>
-    <clin:hasNutritionEntry rdf:resource="http://hospital-b.org/clinical#Grapefruit"/>
-    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-01"/>
-    <clin:knowsPatient rdf:resource="http://hospital-b.org/patient#AS_2024_001"/>
+    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#BronchialAsthma"/>
+    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-03"/>
+    <clin:knowsPatient rdf:resource="http://hospital-b.org/patient#MK_2024_004"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#underCareOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <owl:inverseOf rdf:resource="http://hospital-b.org/clinical#caresFor"/>
-    <rdfs:label>is under the primary care of</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://hospital-a.org/ehr#seenBy"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Arthur_Johnson">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <clin:Patient_Name>Arthur Johnson</clin:Patient_Name>
-    <clin:DOB>10/10/1950</clin:DOB>
-    <clin:Sex>M</clin:Sex>
-    <clin:onMedication rdf:resource="http://hospital-b.org/clinical#HuntingtonsDisease"/>
-    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-02"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_02">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
-    <rdfs:label>Acetylsalicylic Acid (Aspirin)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#consultsWith">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:label>consults with peer safely (symmetric)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/373873005">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Pharmaceutical / biologic product</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-c.org/med#Name">
+  <rdf:Description rdf:about="http://hospital-c.org/med#ProviderID">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/hasRisk">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>has interaction risk</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-    <rdfs:label>Hospital B - Clinical &amp; Trial Data Ontology</rdfs:label>
-    <rdfs:comment>A semantically rich clinical ontology with domain/range constraints and disjoint classes.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/709044004">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
-    <rdfs:label>Chronic kidney disease</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#caresFor">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <owl:inverseOf rdf:resource="http://hospital-b.org/clinical#underCareOf"/>
-    <rdfs:label>provides care for</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A6">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Dr. Stephen Strange</rdfs:label>
-    <ehr:hasSpecialty>Cardiology</ehr:hasSpecialty>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Alice_Smith">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <ehr:FullName>Alice Smith</ehr:FullName>
-    <ehr:DateOfBirth>1985-06-14</ehr:DateOfBirth>
-    <ehr:hasParent rdf:resource="http://hospital-a.org/patient#P_099"/>
-    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#DiabetesType2"/>
-    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Metformin"/>
-    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Warfarin"/>
-    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A1"/>
-    <clin:Patient_Name>Alice Smith</clin:Patient_Name>
-    <clin:DOB>14/06/1985</clin:DOB>
-    <clin:Sex>F</clin:Sex>
-    <clin:BMI rdf:datatype="http://www.w3.org/2001/XMLSchema#float">28.5</clin:BMI>
-    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#AdultOnsetDiabetes"/>
-    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-04"/>
-    <clin:knowsPatient rdf:resource="http://hospital-b.org/patient#ET_2024_003"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-    <rdfs:label>Hospital A - Electronic Health Record (EHR) Ontology</rdfs:label>
-    <rdfs:comment>A semantically rich local ontology structurally enforcing EHR documentation standards.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-c.org/patient#NPRX">
-    <rdf:type rdf:resource="http://hospital-c.org/med#Drug"/>
-    <rdfs:label>Naproxen</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#F_01">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#NutritionEntry"/>
-    <rdfs:label>Grapefruit</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#EHR_Record">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Person"/>
-    <owl:disjointWith rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Electronic Health Record (Patient Profile)</rdfs:label>
-    <owl:equivalentClass rdf:resource="http://snomed.info/id/125676002"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_05">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
-    <rdfs:label>Amlodipine</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b16">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
-    <owl:someValuesFrom rdf:resource="http://snomed.info/id/397156001"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#FullName">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#Person"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/372804008">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
+    <rdfs:label>Warfarin</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://hospital-b.org/clinical#NutritionEntry">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -170,107 +79,18 @@
     <rdfs:label>Dietary / Nutrition Log Entry</rdfs:label>
     <owl:equivalentClass rdf:resource="http://snomed.info/id/105590001"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Asthma">
-    <rdf:type rdf:resource="http://snomed.info/id/195967001"/>
+  <rdf:Description rdf:about="http://unified.org/patient#Liam_Nguyen">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <clin:Patient_Name>Liam Nguyen</clin:Patient_Name>
+    <clin:DOB>12/12/1980</clin:DOB>
+    <clin:Sex>M</clin:Sex>
+    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#AdultOnsetDiabetes"/>
+    <clin:onMedication rdf:resource="http://hospital-b.org/clinical#MetforminHydrochloride"/>
+    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-01"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Human">
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b15">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalEntity"/>
-    <rdfs:label>Human Being</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#eligibleForPeerSecondOpinionFrom">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:label>eligible for peer network second opinion</rdfs:label>
-    <owl:propertyChainAxiom rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b3"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b4">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
-    <owl:someValuesFrom rdf:resource="http://snomed.info/id/372804008"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/387353006">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
-    <rdfs:label>Salbutamol</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalOfficer">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:label>Clinical Officer / NP</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A7">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Dr. Allison Cameron</rdfs:label>
-    <ehr:hasSpecialty>Endocrinology</ehr:hasSpecialty>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-04">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. Sarah Connor</rdfs:label>
-    <clin:hasSpecialty>Primary Care</clin:hasSpecialty>
-    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-08"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#D_02">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
-    <rdfs:label>Hypertension</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Observation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalEntity"/>
-    <rdfs:label>Clinical Observation</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Carol_White">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <ehr:FullName>Carol White</ehr:FullName>
-    <ehr:DateOfBirth>1990-08-22</ehr:DateOfBirth>
-    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Asthma"/>
-    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Ibuprofen"/>
-    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A1"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Medication">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Regimen"/>
-    <rdfs:label>Active Medication</rdfs:label>
-    <owl:equivalentClass rdf:resource="http://snomed.info/id/373873005"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasAncestor">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdfs:range rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdfs:label>has biological ancestor</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalAncestor"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Gender">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#Person"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/hasRiskOfGeneticDisease">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <owl:propertyChainAxiom rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b1"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/105590001">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Substance (Food)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A3">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Dr. Lisa Cuddy</rdfs:label>
-    <ehr:hasSpecialty>Endocrinology</ehr:hasSpecialty>
-    <ehr:reliesOnColleague rdf:resource="http://hospital-a.org/ehr#DOC-A7"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasDiagnosis">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
-    <rdfs:label>has confirmed diagnosis</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/associatedWith"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b19">
-    <rdf:first rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b16"/>
-    <rdf:rest rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b20"/>
+    <owl:intersectionOf rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b18"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://unified.org/patient#Bob_Johnson">
     <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
@@ -293,18 +113,404 @@
     <clin:onMedication rdf:resource="http://hospital-b.org/clinical#Lisinopril"/>
     <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-01"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#treatsPatient">
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A5">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Dr. Chris Taub</rdfs:label>
+    <ehr:hasSpecialty>Primary Care</ehr:hasSpecialty>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#PatientID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/hasRisk">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#AttendingPhysician"/>
+    <rdfs:label>has interaction risk</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#F_02">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#NutritionEntry"/>
+    <rdfs:label>Grapefruit Juice</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/BronchospasmRisk">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/InteractionAlert"/>
+    <rdfs:label>Bronchospasm Risk (NSAID + Asthma)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Old_Bob_Johnson">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <ehr:FullName>Old Bob Johnson</ehr:FullName>
+    <ehr:DateOfBirth>1950-10-10</ehr:DateOfBirth>
+    <ehr:hasGeneticCondition rdf:resource="http://hospital-a.org/ehr#Huntingtons"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#BloodPressure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/32895009">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
+    <rdfs:label>Hereditary disease</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/372605008">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
+    <rdfs:label>Amlodipine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Alice_Smith">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <ehr:FullName>Alice Smith</ehr:FullName>
+    <ehr:DateOfBirth>1985-06-14</ehr:DateOfBirth>
+    <ehr:hasParent rdf:resource="http://hospital-a.org/patient#P_099"/>
+    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#DiabetesType2"/>
+    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Metformin"/>
+    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Warfarin"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A1"/>
+    <clin:Patient_Name>Alice Smith</clin:Patient_Name>
+    <clin:DOB>14/06/1985</clin:DOB>
+    <clin:Sex>F</clin:Sex>
+    <clin:BMI rdf:datatype="http://www.w3.org/2001/XMLSchema#float">28.5</clin:BMI>
+    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#AdultOnsetDiabetes"/>
+    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-04"/>
+    <clin:knowsPatient rdf:resource="http://hospital-b.org/patient#ET_2024_003"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A2">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Dr. Eric Foreman</rdfs:label>
+    <ehr:hasSpecialty>Cardiology</ehr:hasSpecialty>
+    <ehr:reliesOnColleague rdf:resource="http://hospital-a.org/ehr#DOC-A6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Aspirin">
+    <rdf:type rdf:resource="http://snomed.info/id/7947003"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Name">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#suffersFrom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#ConfirmedIllness"/>
+    <rdfs:label>suffers from illness</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/associatedWith"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b8">
+    <rdf:first rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b5"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#ConfirmedIllness">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#MedicalObservation"/>
+    <rdfs:label>Confirmed Illness</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/404684003"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nffc61a21422a44829d19346259221692b3">
+    <rdf:first rdf:resource="http://hospital-c.org/med#sharesRoomWith"/>
+    <rdf:rest rdf:nodeID="nffc61a21422a44829d19346259221692b4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#seenBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdfs:range rdf:resource="http://hospital-a.org/ehr#AttendingPhysician"/>
+    <owl:inverseOf rdf:resource="http://hospital-a.org/ehr#treatsPatient"/>
+    <rdfs:label>is seen by</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://hospital-b.org/clinical#underCareOf"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/HypotensionRiskPatient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b9"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b17">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://snomed.info/id/associatedWith"/>
+    <owl:someValuesFrom rdf:resource="http://snomed.info/id/195967001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#peerReviewOpportunity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:label>peer review opportunity via roommate</rdfs:label>
+    <owl:propertyChainAxiom rdf:nodeID="nffc61a21422a44829d19346259221692b3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-07">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. Allison Cameron</rdfs:label>
+    <clin:hasSpecialty>Endocrinology</clin:hasSpecialty>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b16">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
+    <owl:someValuesFrom rdf:resource="http://snomed.info/id/397156001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#hasBiologicalMotherOrFather">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://hospital-c.org/med#descendsFrom"/>
+    <rdfs:label>has biological mother or father</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalParent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalSubject">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Human"/>
+    <owl:disjointWith rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:label>Clinical Trial Subject / Patient</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/125676002"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#AttendingPhysician">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Attending Physician</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasAncestor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
     <rdfs:range rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <owl:inverseOf rdf:resource="http://hospital-a.org/ehr#seenBy"/>
-    <rdfs:label>treats patient</rdfs:label>
+    <rdfs:label>has biological ancestor</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalAncestor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A3">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Dr. Lisa Cuddy</rdfs:label>
+    <ehr:hasSpecialty>Endocrinology</ehr:hasSpecialty>
+    <ehr:reliesOnColleague rdf:resource="http://hospital-a.org/ehr#DOC-A7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Demo_Patient_BothAB">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <ehr:FullName>Demo Patient BothAB</ehr:FullName>
+    <ehr:DateOfBirth>1982-02-02</ehr:DateOfBirth>
+    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Hypertension"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A2"/>
+    <clin:Patient_Name>Demo Patient BothAB</clin:Patient_Name>
+    <clin:DOB>02/02/1982</clin:DOB>
+    <clin:Sex>M</clin:Sex>
+    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#EssentialHypertension"/>
+    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-01"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Arthur_Johnson">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <clin:Patient_Name>Arthur Johnson</clin:Patient_Name>
+    <clin:DOB>10/10/1950</clin:DOB>
+    <clin:Sex>M</clin:Sex>
+    <clin:onMedication rdf:resource="http://hospital-b.org/clinical#HuntingtonsDisease"/>
+    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-02"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b14">
+    <rdf:first rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b11"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_05">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
+    <rdfs:label>Amlodipine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Mohan_Kumar">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <clin:Patient_Name>Mohan Kumar</clin:Patient_Name>
+    <clin:DOB>30/01/1965</clin:DOB>
+    <clin:Sex>M</clin:Sex>
+    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#EssentialHypertension"/>
+    <clin:onMedication rdf:resource="http://hospital-b.org/clinical#Amlodipine"/>
+    <clin:hasNutritionEntry rdf:resource="http://hospital-b.org/clinical#GrapefruitJuice"/>
+    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-03"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://hospital-c.org/med#administeredDrug">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
     <rdfs:range rdf:resource="http://hospital-c.org/med#Drug"/>
+    <rdfs:label>was administered drug</rdfs:label>
     <owl:equivalentProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Carol_White">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <ehr:FullName>Carol White</ehr:FullName>
+    <ehr:DateOfBirth>1990-08-22</ehr:DateOfBirth>
+    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Asthma"/>
+    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Ibuprofen"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/404684003">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Clinical finding (Disease)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Prescription">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Intervention"/>
+    <rdfs:label>Prescription Medication</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/373873005"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-03">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. Lisa Cuddy</rdfs:label>
+    <clin:hasSpecialty>Endocrinology</clin:hasSpecialty>
+    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-07"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#treatedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <owl:inverseOf rdf:resource="http://hospital-c.org/med#managesCase"/>
+    <rdfs:label>is treated by provider</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#VitalSign">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#MedicalObservation"/>
+    <rdfs:label>Vital Sign</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b11">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://snomed.info/id/consumes"/>
+    <owl:someValuesFrom rdf:resource="http://snomed.info/id/110540003"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Naproxen">
+    <rdf:type rdf:resource="http://snomed.info/id/397156001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#undergoesSurgery">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#SurgicalProcedure"/>
+    <rdfs:label>undergoes surgical procedure</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/7947003">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/397156001"/>
+    <rdfs:label>Aspirin</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
+    <owl:someValuesFrom rdf:resource="http://snomed.info/id/372804008"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdfs:range rdf:resource="http://hospital-a.org/ehr#Condition"/>
+    <rdfs:label>has condition</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/associatedWith"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#underCareOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <owl:inverseOf rdf:resource="http://hospital-b.org/clinical#caresFor"/>
+    <rdfs:label>is under the primary care of</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://hospital-a.org/ehr#seenBy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/195967001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
+    <rdfs:label>Asthma</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nccec6b4ef91849718800d4570339c10cb1">
+    <rdf:first rdf:resource="http://hospital-b.org/clinical#underCareOf"/>
+    <rdf:rest rdf:nodeID="nccec6b4ef91849718800d4570339c10cb2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#I10">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
+    <rdfs:label>Essential hypertension</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Demo_Patient_OnlyA">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <ehr:FullName>Demo Patient OnlyA</ehr:FullName>
+    <ehr:DateOfBirth>1980-01-01</ehr:DateOfBirth>
+    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#DiabetesType2"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/patient#NPRX">
+    <rdf:type rdf:resource="http://hospital-c.org/med#Drug"/>
+    <rdfs:label>Naproxen</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#eligibleForSpecialistReview">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:label>eligible for specialist review</rdfs:label>
+    <owl:propertyChainAxiom rdf:nodeID="nffc61a21422a44829d19346259221692b1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#FullName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#Person"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Warfarin">
+    <rdf:type rdf:resource="http://snomed.info/id/372804008"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#refersTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:label>refers patient to colleague (transitive)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#consultsWith">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:label>consults with peer safely (symmetric)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#HealthcareProvider">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#Person"/>
+    <rdfs:label>Healthcare Provider</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#John_Doe">
+    <rdf:type rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <medc:Name>John Doe</medc:Name>
+    <medc:administeredDrug rdf:resource="http://hospital-c.org/med#Naproxen"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#ClinicalConcept">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Clinical Concept</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#BloodType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#knowsPatient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:label>is friends with another patient</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://snomed.info/id/consumes"/>
+    <owl:someValuesFrom rdf:resource="http://snomed.info/id/110540003"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nccec6b4ef91849718800d4570339c10cb2">
+    <rdf:first rdf:resource="http://hospital-b.org/clinical#consultsWith"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nffc61a21422a44829d19346259221692b4">
+    <rdf:first rdf:resource="http://hospital-c.org/med#treatedBy"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalOfficer">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:label>Clinical Officer / NP</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Ibuprofen">
+    <rdf:type rdf:resource="http://snomed.info/id/387207008"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/372706001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
+    <rdfs:label>Lisinopril</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_01">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
+    <rdfs:label>Metformin</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-08">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. Chris Taub</rdfs:label>
+    <clin:hasSpecialty>Primary Care</clin:hasSpecialty>
   </rdf:Description>
   <rdf:Description rdf:about="http://unified.org/patient#Emily_Turner">
     <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
@@ -317,443 +523,10 @@
     <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-04"/>
     <clin:knowsPatient rdf:resource="http://hospital-b.org/patient#AS_2024_001"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/372804008">
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Specialist">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
-    <rdfs:label>Warfarin</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Frank_Wright">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <ehr:FullName>Frank Wright</ehr:FullName>
-    <ehr:DateOfBirth>1970-09-09</ehr:DateOfBirth>
-    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#DiabetesType2"/>
-    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Metformin"/>
-    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A3"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalSubject">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Human"/>
-    <owl:disjointWith rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:label>Clinical Trial Subject / Patient</rdfs:label>
-    <owl:equivalentClass rdf:resource="http://snomed.info/id/125676002"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Condition">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#ClinicalConcept"/>
-    <rdfs:label>Medical Condition or Disease</rdfs:label>
-    <owl:equivalentClass rdf:resource="http://snomed.info/id/404684003"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasSpecialty">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasBiologicalParent">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://hospital-b.org/clinical#hasBiologicalAncestor"/>
-    <rdfs:label>biological parent</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalParent"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasPrescription">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdfs:range rdf:resource="http://hospital-a.org/ehr#Prescription"/>
-    <rdfs:label>has prescription</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#seenBy">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdfs:range rdf:resource="http://hospital-a.org/ehr#AttendingPhysician"/>
-    <owl:inverseOf rdf:resource="http://hospital-a.org/ehr#treatsPatient"/>
-    <rdfs:label>is seen by</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#reliesOnColleague">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:range rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>relies on specialist colleague</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/HypotensionRisk">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/InteractionAlert"/>
-    <rdfs:label>Hypotension Risk (Amlodipine + Grapefruit)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/195967001">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
-    <rdfs:label>Asthma</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Mohan_Kumar">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <clin:Patient_Name>Mohan Kumar</clin:Patient_Name>
-    <clin:DOB>30/01/1965</clin:DOB>
-    <clin:Sex>M</clin:Sex>
-    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#EssentialHypertension"/>
-    <clin:onMedication rdf:resource="http://hospital-b.org/clinical#Amlodipine"/>
-    <clin:hasNutritionEntry rdf:resource="http://hospital-b.org/clinical#GrapefruitJuice"/>
-    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-03"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Patient_Name">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#Human"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b5">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://snomed.info/id/consumes"/>
-    <owl:someValuesFrom rdf:resource="http://snomed.info/id/110540003"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasNutritionEntry">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#NutritionEntry"/>
-    <rdfs:label>consumed nutritional item</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/consumes"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-c.org/med#MedicalRecord">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:resource="http://snomed.info/id/125676002"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/372605008">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
-    <rdfs:label>Amlodipine</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#onMedication">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#Medication"/>
-    <rdfs:label>is currently taking medication</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/BleedingRiskPatient">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b3"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_01">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
-    <rdfs:label>Metformin Hydrochloride</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b17">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://snomed.info/id/associatedWith"/>
-    <owl:someValuesFrom rdf:resource="http://snomed.info/id/195967001"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/58756001">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/32895009"/>
-    <rdfs:label>Huntington's chorea (disorder)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Old_Bob_Johnson">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <ehr:FullName>Old Bob Johnson</ehr:FullName>
-    <ehr:DateOfBirth>1950-10-10</ehr:DateOfBirth>
-    <ehr:hasGeneticCondition rdf:resource="http://hospital-a.org/ehr#Huntingtons"/>
-    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A3"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/BleedingRisk">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/InteractionAlert"/>
-    <rdfs:label>Bleeding Risk (Warfarin + Grapefruit)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/125676002">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Person (Patient/Subject)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/BronchospasmRisk">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/InteractionAlert"/>
-    <rdfs:label>Bronchospasm Risk (NSAID + Asthma)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Prescription">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Intervention"/>
-    <rdfs:label>Prescription Medication</rdfs:label>
-    <owl:equivalentClass rdf:resource="http://snomed.info/id/373873005"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/38341003">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
-    <rdfs:label>Hypertension</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b10">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
-    <owl:someValuesFrom rdf:resource="http://snomed.info/id/372605008"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasSpecialty">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#LabResult">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Observation"/>
-    <rdfs:label>Laboratory Test Result</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#AttendingPhysician">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Attending Physician</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A1">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Dr. Sarah Connor</rdfs:label>
-    <ehr:hasSpecialty>Primary Care</ehr:hasSpecialty>
-    <ehr:reliesOnColleague rdf:resource="http://hospital-a.org/ehr#DOC-A5"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Subject_Ref">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-06">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. Robert Chase</rdfs:label>
-    <clin:hasSpecialty>Oncology</clin:hasSpecialty>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#MedicalPersonnel">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Person"/>
-    <rdfs:label>Medical Personnel</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_03">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
-    <rdfs:label>Ibuprofen</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#PatientID">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#BloodType">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b14">
-    <rdf:first rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b11"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#D_04">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
-    <rdfs:label>Asthma</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Liam_Nguyen">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <clin:Patient_Name>Liam Nguyen</clin:Patient_Name>
-    <clin:DOB>12/12/1980</clin:DOB>
-    <clin:Sex>M</clin:Sex>
-    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#AdultOnsetDiabetes"/>
-    <clin:onMedication rdf:resource="http://hospital-b.org/clinical#MetforminHydrochloride"/>
-    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-01"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#J45">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
-    <rdfs:label>Bronchial asthma</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b2">
-    <rdf:first rdf:resource="http://hospital-b.org/clinical#consultsWith"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#E11">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
-    <rdfs:label>Adult-onset diabetes</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasParent">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://hospital-a.org/ehr#hasAncestor"/>
-    <rdfs:label>has biological parent</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalParent"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_01">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
-    <rdfs:label>Metformin</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Genevieve_Smith">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <ehr:FullName>Genevieve Smith</ehr:FullName>
-    <ehr:DateOfBirth>1955-02-12</ehr:DateOfBirth>
-    <ehr:hasGeneticCondition rdf:resource="http://hospital-a.org/ehr#Huntingtons"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-08">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. Chris Taub</rdfs:label>
-    <clin:hasSpecialty>Primary Care</clin:hasSpecialty>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-05">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. Stephen Strange</rdfs:label>
-    <clin:hasSpecialty>Cardiology</clin:hasSpecialty>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/prescribedTo">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>is prescribed product</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/hasBiologicalAncestor">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#D_01">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
-    <rdfs:label>Diabetes Type 2</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasGeneticCondition">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://hospital-a.org/ehr#hasCondition"/>
-    <rdfs:label>has confirmed genetic disease</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasGeneticDisease"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_05">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
-    <rdfs:label>Amlodipine</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#HuntingtonsDisease">
-    <rdf:type rdf:resource="http://snomed.info/id/58756001"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalEntity">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Base Clinical Entity</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b12">
-    <rdf:first rdf:resource="http://snomed.info/id/125676002"/>
-    <rdf:rest rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b13"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-02">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. James Wilson</rdfs:label>
-    <clin:hasSpecialty>Oncology</clin:hasSpecialty>
-    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-06"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Sarah_Olsen">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <clin:Patient_Name>Sarah Olsen</clin:Patient_Name>
-    <clin:DOB>05/05/1995</clin:DOB>
-    <clin:Sex>F</clin:Sex>
-    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#BronchialAsthma"/>
-    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-03"/>
-    <clin:knowsPatient rdf:resource="http://hospital-b.org/patient#MK_2024_004"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/404684003">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Clinical finding (Disease)</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#BronchialAsthma">
-    <rdf:type rdf:resource="http://snomed.info/id/195967001"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#I10">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
-    <rdfs:label>Essential hypertension</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DateOfBirth">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#Person"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/core">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-    <rdfs:label>SNOMED CT Subset</rdfs:label>
-    <rdfs:comment>A lightweight simulation of SNOMED CT using real SCTIDs for integration.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A2">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Dr. Eric Foreman</rdfs:label>
-    <ehr:hasSpecialty>Cardiology</ehr:hasSpecialty>
-    <ehr:reliesOnColleague rdf:resource="http://hospital-a.org/ehr#DOC-A6"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-c.org/med#Drug">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:resource="http://snomed.info/id/373873005"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b6">
-    <rdf:first rdf:resource="http://snomed.info/id/125676002"/>
-    <rdf:rest rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b7"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b3">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:intersectionOf rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b6"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b4">
-    <rdf:first rdf:resource="http://hospital-b.org/clinical#underCareOf"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/387207008">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/397156001"/>
-    <rdfs:label>Ibuprofen</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#G10">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
-    <rdfs:label>Huntington's chorea</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/73211009">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
-    <rdfs:label>Diabetes mellitus</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#ChronicCondition">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Condition"/>
-    <rdfs:label>Chronic Condition</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b9">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:intersectionOf rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b12"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#Eve_Carter">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
-    <rdf:type rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
-    <ehr:FullName>Eve Carter</ehr:FullName>
-    <ehr:DateOfBirth>1988-04-15</ehr:DateOfBirth>
-    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Asthma"/>
-    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A2"/>
-    <medc:Name>Eve Carter</medc:Name>
-    <medc:administeredDrug rdf:resource="http://hospital-c.org/med#Naproxen"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#ClinicalConcept">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Clinical Concept</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b7">
-    <rdf:first rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b4"/>
-    <rdf:rest rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b8"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_04">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
-    <rdfs:label>Lisinopril</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#N18">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
-    <rdfs:label>Chronic renal failure</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b20">
-    <rdf:first rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b17"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b8">
-    <rdf:first rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b5"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-01">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. Riya Patel</rdfs:label>
-    <clin:hasSpecialty>Cardiology</clin:hasSpecialty>
-    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-05"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Person">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Person</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#D_05">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
-    <rdfs:label>Huntington's chorea</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalStaff">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Human"/>
-    <rdfs:label>Clinical Staff Member</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:label>Medical Specialist</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://hospital-b.org/clinical#hasBiologicalAncestor">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
@@ -763,25 +536,98 @@
     <rdfs:label>biological ancestor</rdfs:label>
     <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalAncestor"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_04">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
-    <rdfs:label>Lisinopril</rdfs:label>
+  <rdf:Description rdf:about="http://hospital-c.org/med#managesCase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <owl:inverseOf rdf:resource="http://hospital-c.org/med#treatedBy"/>
+    <rdfs:label>manages patient case</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/InteractionAlert">
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Lisinopril">
+    <rdf:type rdf:resource="http://snomed.info/id/372706001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Grapefruit">
+    <rdf:type rdf:resource="http://snomed.info/id/110540003"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Intervention">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Dangerous Interaction Risk</rdfs:label>
+    <rdfs:label>Medical Intervention</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b2">
-    <rdf:first rdf:resource="http://snomed.info/id/hasGeneticDisease"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#BMI">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#eligibleForSecondOpinionFrom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:label>eligible for second opinion from</rdfs:label>
+    <owl:propertyChainAxiom rdf:nodeID="nccec6b4ef91849718800d4570339c10cb1"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DiabetesType2">
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-04">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. Sarah Connor</rdfs:label>
+    <clin:hasSpecialty>Primary Care</clin:hasSpecialty>
+    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-08"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasGeneticDiagnosis">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://hospital-b.org/clinical#hasDiagnosis"/>
+    <rdfs:label>confirmed genetic diagnosis</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasGeneticDisease"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Frank_Wright">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <ehr:FullName>Frank Wright</ehr:FullName>
+    <ehr:DateOfBirth>1970-09-09</ehr:DateOfBirth>
+    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#DiabetesType2"/>
+    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Metformin"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b7">
+    <rdf:first rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b4"/>
+    <rdf:rest rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b8"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#AdultOnsetDiabetes">
     <rdf:type rdf:resource="http://snomed.info/id/73211009"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b6">
+    <rdf:first rdf:resource="http://snomed.info/id/125676002"/>
+    <rdf:rest rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Zara_Khan">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <ehr:FullName>Zara Khan</ehr:FullName>
+    <ehr:DateOfBirth>1993-03-17</ehr:DateOfBirth>
+    <ehr:hasParent rdf:resource="http://hospital-a.org/patient#P_099"/>
+    <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Hypertension"/>
+    <ehr:hasPrescription rdf:resource="http://hospital-a.org/ehr#Warfarin"/>
+    <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A1"/>
+    <clin:Patient_Name>Zara Khan</clin:Patient_Name>
+    <clin:DOB>17/03/1993</clin:DOB>
+    <clin:Sex>F</clin:Sex>
+    <clin:BMI rdf:datatype="http://www.w3.org/2001/XMLSchema#float">25.0</clin:BMI>
+    <clin:hasDiagnosis rdf:resource="http://hospital-b.org/clinical#EssentialHypertension"/>
+    <clin:hasNutritionEntry rdf:resource="http://hospital-b.org/clinical#Grapefruit"/>
+    <clin:underCareOf rdf:resource="http://hospital-b.org/clinical#OFF-01"/>
+    <clin:knowsPatient rdf:resource="http://hospital-b.org/patient#AS_2024_001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#G10">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
+    <rdfs:label>Huntington's chorea</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label>Hospital C - Medical Ontology</rdfs:label>
+    <rdfs:comment>A highly dense local ontology for Hospital C featuring complex class hierarchies, disjoints, and property chains.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#SurgicalProcedure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#Therapy"/>
+    <rdfs:label>Surgical Procedure</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-02">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. James Wilson</rdfs:label>
+    <clin:hasSpecialty>Oncology</clin:hasSpecialty>
+    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-06"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://unified.org/patient#David_Lee">
     <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
@@ -790,233 +636,584 @@
     <ehr:hasCondition rdf:resource="http://hospital-a.org/ehr#Hypertension"/>
     <ehr:seenBy rdf:resource="http://hospital-a.org/ehr#DOC-A3"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b11">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://snomed.info/id/consumes"/>
-    <owl:someValuesFrom rdf:resource="http://snomed.info/id/110540003"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#F_02">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#NutritionEntry"/>
-    <rdfs:label>Grapefruit Juice</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b18">
-    <rdf:first rdf:resource="http://snomed.info/id/125676002"/>
-    <rdf:rest rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b19"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasGeneticDiagnosis">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://hospital-b.org/clinical#hasDiagnosis"/>
-    <rdfs:label>confirmed genetic diagnosis</rdfs:label>
-    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasGeneticDisease"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/372706001">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
-    <rdfs:label>Lisinopril</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#eligibleForSecondOpinionFrom">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
-    <rdfs:label>eligible for second opinion from</rdfs:label>
-    <owl:propertyChainAxiom rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b1"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#D_03">
+  <rdf:Description rdf:about="http://hospital-a.org/patient#D_02">
     <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
-    <rdfs:label>Chronic Kidney Disease</rdfs:label>
+    <rdfs:label>Hypertension</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/consumes">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>consumes substance</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Grapefruit">
-    <rdf:type rdf:resource="http://snomed.info/id/110540003"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/372567009">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
-    <rdfs:label>Metformin</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Regimen">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalEntity"/>
-    <rdfs:label>Patient Regimen</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_03">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
-    <rdfs:label>Ibuprofen</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-c.org/med">
+  <rdf:Description rdf:about="http://hospital-b.org/clinical">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label>Hospital B - Clinical &amp; Trial Data Ontology</rdfs:label>
+    <rdfs:comment>A semantically rich clinical ontology with domain/range constraints and disjoint classes.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#ChronicKidneyDisease">
-    <rdf:type rdf:resource="http://snomed.info/id/709044004"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#ChronicRenalFailure">
-    <rdf:type rdf:resource="http://snomed.info/id/709044004"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Amlodipine">
-    <rdf:type rdf:resource="http://snomed.info/id/372605008"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://unified.org/patient#John_Doe">
-    <rdf:type rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
-    <medc:Name>John Doe</medc:Name>
-    <medc:administeredDrug rdf:resource="http://hospital-c.org/med#Naproxen"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/associatedWith">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>has clinical finding</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/110540003">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/105590001"/>
-    <rdfs:label>Grapefruit</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Huntingtons">
-    <rdf:type rdf:resource="http://snomed.info/id/58756001"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/32895009">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
-    <rdfs:label>Hereditary disease</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Sex">
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasSpecialty">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#Human"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#MetforminHydrochloride">
-    <rdf:type rdf:resource="http://snomed.info/id/372567009"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-07">
-    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
-    <rdfs:label>Dr. Allison Cameron</rdfs:label>
-    <clin:hasSpecialty>Endocrinology</clin:hasSpecialty>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/7947003">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://snomed.info/id/397156001"/>
-    <rdfs:label>Aspirin</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#knowsPatient">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
-    <rdfs:label>is friends with another patient</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b1">
-    <rdf:first rdf:resource="http://snomed.info/id/hasBiologicalAncestor"/>
-    <rdf:rest rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b2"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b15">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:intersectionOf rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b18"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Hypertension">
-    <rdf:type rdf:resource="http://snomed.info/id/38341003"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b3">
-    <rdf:first rdf:resource="http://hospital-b.org/clinical#knowsPatient"/>
-    <rdf:rest rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b4"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://snomed.info/id/397156001">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
     <rdfs:label>NSAID (Non-steroidal anti-inflammatory drug)</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b1">
-    <rdf:first rdf:resource="http://hospital-b.org/clinical#underCareOf"/>
-    <rdf:rest rdf:nodeID="nfbf57a5d4b18409daef961919e53a2c4b2"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#SalbutamolSulfate">
-    <rdf:type rdf:resource="http://snomed.info/id/387353006"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/BronchospasmRiskPatient">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b15"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#AdultOnsetDiabetes">
-    <rdf:type rdf:resource="http://snomed.info/id/73211009"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/hasBiologicalParent">
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#caresFor">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <owl:inverseOf rdf:resource="http://hospital-b.org/clinical#underCareOf"/>
+    <rdfs:label>provides care for</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Salbutamol">
-    <rdf:type rdf:resource="http://snomed.info/id/387353006"/>
+  <rdf:Description rdf:about="http://snomed.info/id/709044004">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
+    <rdfs:label>Chronic kidney disease</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#AcetylsalicylicAcid">
-    <rdf:type rdf:resource="http://snomed.info/id/7947003"/>
+  <rdf:Description rdf:about="http://snomed.info/id/110540003">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/105590001"/>
+    <rdfs:label>Grapefruit</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_02">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
-    <rdfs:label>Warfarin</rdfs:label>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b18">
+    <rdf:first rdf:resource="http://snomed.info/id/125676002"/>
+    <rdf:rest rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b19"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b13">
-    <rdf:first rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b10"/>
-    <rdf:rest rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b14"/>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalEntity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Base Clinical Entity</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Drug">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#Therapy"/>
+    <owl:disjointWith rdf:resource="http://hospital-c.org/med#SurgicalProcedure"/>
+    <rdfs:label>Administered Drug</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/373873005"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/BleedingRisk">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/InteractionAlert"/>
+    <rdfs:label>Bleeding Risk (Warfarin + Grapefruit)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Ibuprofen">
+    <rdf:type rdf:resource="http://snomed.info/id/387207008"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasParent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://hospital-a.org/ehr#hasAncestor"/>
+    <rdfs:label>has biological parent</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalParent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Hypertension">
+    <rdf:type rdf:resource="http://snomed.info/id/38341003"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#treatsPatient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#AttendingPhysician"/>
+    <rdfs:range rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <owl:inverseOf rdf:resource="http://hospital-a.org/ehr#seenBy"/>
+    <rdfs:label>treats patient</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Gender">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#Person"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#EHR_Record">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Person"/>
+    <owl:disjointWith rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Electronic Health Record (Patient Profile)</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/125676002"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Observation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalEntity"/>
+    <rdfs:label>Clinical Observation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nffc61a21422a44829d19346259221692b2">
+    <rdf:first rdf:resource="http://hospital-c.org/med#refersTo"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#PatientID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/58756001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/32895009"/>
+    <rdfs:label>Huntington's chorea (disorder)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasBiologicalParent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://hospital-b.org/clinical#hasBiologicalAncestor"/>
+    <rdfs:label>biological parent</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalParent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasSpecialty">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#sharesRoomWith">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:label>shares hospital room with (symmetric)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#descendsFrom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:range rdf:resource="http://hospital-c.org/med#MedicalRecord"/>
+    <rdfs:label>descends from ancestor</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasBiologicalAncestor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A1">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Dr. Sarah Connor</rdfs:label>
+    <ehr:hasSpecialty>Primary Care</ehr:hasSpecialty>
+    <ehr:reliesOnColleague rdf:resource="http://hospital-a.org/ehr#DOC-A5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/372567009">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
+    <rdfs:label>Metformin</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasNutritionEntry">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#NutritionEntry"/>
+    <rdfs:label>consumed nutritional item</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/consumes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Condition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#ClinicalConcept"/>
+    <rdfs:label>Medical Condition or Disease</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/404684003"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#GrapefruitJuice">
+    <rdf:type rdf:resource="http://snomed.info/id/110540003"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b20">
+    <rdf:first rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b17"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://hospital-b.org/clinical#DOB">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://medonto.org/snomed-mapping-A">
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#BMI">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#BronchialAsthma">
+    <rdf:type rdf:resource="http://snomed.info/id/195967001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/core">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label>SNOMED CT Subset</rdfs:label>
+    <rdfs:comment>A lightweight simulation of SNOMED CT using real SCTIDs for integration.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#GrapefruitJuice">
-    <rdf:type rdf:resource="http://snomed.info/id/110540003"/>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#AcetylsalicylicAcid">
+    <rdf:type rdf:resource="http://snomed.info/id/7947003"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-b.org/clinical#Ibuprofen">
-    <rdf:type rdf:resource="http://snomed.info/id/387207008"/>
+  <rdf:Description rdf:about="http://snomed.info/id/BronchospasmRiskPatient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b15"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/hasGeneticDisease">
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#eligibleForPeerSecondOpinionFrom">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#ClinicalStaff"/>
+    <rdfs:label>eligible for peer network second opinion</rdfs:label>
+    <owl:propertyChainAxiom rdf:nodeID="nccec6b4ef91849718800d4570339c10cb3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DateOfBirth">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-a.org/ehr#Person"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#MedicalRecord">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#Person"/>
+    <owl:disjointWith rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:label>Medical Record (Patient)</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/125676002"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label>Hospital A - Electronic Health Record (EHR) Ontology</rdfs:label>
+    <rdfs:comment>A semantically rich local ontology structurally enforcing EHR documentation standards.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/38341003">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
+    <rdfs:label>Hypertension</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://snomed.info/id/prescribedTo"/>
+    <owl:someValuesFrom rdf:resource="http://snomed.info/id/372605008"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-06">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. Robert Chase</rdfs:label>
+    <clin:hasSpecialty>Oncology</clin:hasSpecialty>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Asthma">
+    <rdf:type rdf:resource="http://snomed.info/id/195967001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/387207008">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/397156001"/>
+    <rdfs:label>Ibuprofen</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_04">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
+    <rdfs:label>Lisinopril</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/105590001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Substance (Food)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#PrimaryCarePhysician">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:label>Primary Care Physician</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Sex">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#Human"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nccec6b4ef91849718800d4570339c10cb4">
+    <rdf:first rdf:resource="http://hospital-b.org/clinical#underCareOf"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A6">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Dr. Stephen Strange</rdfs:label>
+    <ehr:hasSpecialty>Cardiology</ehr:hasSpecialty>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Subject_Ref">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#ChronicCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Condition"/>
+    <rdfs:label>Chronic Condition</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#D_04">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
+    <rdfs:label>Asthma</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#MedicalObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#Entity"/>
+    <rdfs:label>Medical Observation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/HypotensionRisk">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/InteractionAlert"/>
+    <rdfs:label>Hypotension Risk (Amlodipine + Grapefruit)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Amlodipine">
+    <rdf:type rdf:resource="http://snomed.info/id/372605008"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b19">
+    <rdf:first rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b16"/>
+    <rdf:rest rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b20"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/387353006">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/373873005"/>
+    <rdfs:label>Salbutamol</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Entity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Base Hospital C Entity</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Therapy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#Entity"/>
+    <rdfs:label>Medical Therapy</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Patient_Name">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#Human"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#ClinicalStaff">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Human"/>
+    <rdfs:label>Clinical Staff Member</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Human">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalEntity"/>
+    <rdfs:label>Human Being</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Age">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#Person"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#hasDiagnosis">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-b.org/clinical#ClinicalSubject"/>
+    <rdfs:range rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
+    <rdfs:label>has confirmed diagnosis</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/associatedWith"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#D_03">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
+    <rdfs:label>Chronic Kidney Disease</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/prescribedTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>is prescribed product</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nccec6b4ef91849718800d4570339c10cb3">
+    <rdf:first rdf:resource="http://hospital-b.org/clinical#knowsPatient"/>
+    <rdf:rest rdf:nodeID="nccec6b4ef91849718800d4570339c10cb4"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b2">
+    <rdf:first rdf:resource="http://snomed.info/id/hasGeneticDisease"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_02">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
+    <rdfs:label>Acetylsalicylic Acid (Aspirin)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-01">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. Riya Patel</rdfs:label>
+    <clin:hasSpecialty>Cardiology</clin:hasSpecialty>
+    <clin:consultsWith rdf:resource="http://hospital-b.org/clinical#OFF-05"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://unified.org/patient#Genevieve_Smith">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#EHR_Record"/>
+    <ehr:FullName>Genevieve Smith</ehr:FullName>
+    <ehr:DateOfBirth>1955-02-12</ehr:DateOfBirth>
+    <ehr:hasGeneticCondition rdf:resource="http://hospital-a.org/ehr#Huntingtons"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#D_05">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
+    <rdfs:label>Huntington's chorea</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Salbutamol">
+    <rdf:type rdf:resource="http://snomed.info/id/387353006"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#D_01">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Condition"/>
+    <rdfs:label>Diabetes Type 2</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Regimen">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#ClinicalEntity"/>
+    <rdfs:label>Patient Regimen</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://hospital-b.org/clinical#EssentialHypertension">
     <rdf:type rdf:resource="http://snomed.info/id/38341003"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Intervention">
+  <rdf:Description rdf:about="http://snomed.info/id/hasGeneticDisease">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#Medication">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Medical Intervention</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Regimen"/>
+    <rdfs:label>Active Medication</rdfs:label>
+    <owl:equivalentClass rdf:resource="http://snomed.info/id/373873005"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-c.org/med#Naproxen">
-    <rdf:type rdf:resource="http://snomed.info/id/397156001"/>
+  <rdf:Description rdf:about="http://medonto.org/snomed-mapping-C">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://snomed.info/id/HypotensionRiskPatient">
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Huntingtons">
+    <rdf:type rdf:resource="http://snomed.info/id/58756001"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/hasBiologicalAncestor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_02">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
+    <rdfs:label>Warfarin</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#hasGeneticCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://hospital-a.org/ehr#hasCondition"/>
+    <rdfs:label>has confirmed genetic disease</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasGeneticDisease"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b9">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="ne2089ef06ec94c3b86d5df43ef821104b9"/>
+    <owl:intersectionOf rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b12"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A5">
-    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
-    <rdfs:label>Dr. Chris Taub</rdfs:label>
-    <ehr:hasSpecialty>Primary Care</ehr:hasSpecialty>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Gender">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://hospital-c.org/med#Person"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Warfarin">
-    <rdf:type rdf:resource="http://snomed.info/id/372804008"/>
+  <rdf:Description rdf:about="http://hospital-c.org/med#Person">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#Entity"/>
+    <rdfs:label>Person</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Metformin">
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#MetforminHydrochloride">
     <rdf:type rdf:resource="http://snomed.info/id/372567009"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_05">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
+    <rdfs:label>Amlodipine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/hasRiskOfGeneticDisease">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:propertyChainAxiom rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/73211009">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://snomed.info/id/404684003"/>
+    <rdfs:label>Diabetes mellitus</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#LabResult">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-b.org/clinical#Observation"/>
+    <rdfs:label>Laboratory Test Result</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b13">
+    <rdf:first rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b10"/>
+    <rdf:rest rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b14"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DOC-A7">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#MedicalPersonnel"/>
+    <rdfs:label>Dr. Allison Cameron</rdfs:label>
+    <ehr:hasSpecialty>Endocrinology</ehr:hasSpecialty>
   </rdf:Description>
   <rdf:Description rdf:about="http://medonto.org/snomed-rules">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Aspirin">
-    <rdf:type rdf:resource="http://snomed.info/id/7947003"/>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_03">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
+    <rdfs:label>Ibuprofen</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/373873005">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Pharmaceutical / biologic product</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#OFF-05">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#ClinicalOfficer"/>
+    <rdfs:label>Dr. Stephen Strange</rdfs:label>
+    <clin:hasSpecialty>Cardiology</clin:hasSpecialty>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b1">
+    <rdf:first rdf:resource="http://snomed.info/id/hasBiologicalAncestor"/>
+    <rdf:rest rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#J45">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
+    <rdfs:label>Bronchial asthma</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/hasBiologicalParent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#hasHereditaryIllness">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://hospital-c.org/med#suffersFrom"/>
+    <rdfs:label>has hereditary confirmed illness</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://snomed.info/id/hasGeneticDisease"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/InteractionAlert">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Dangerous Interaction Risk</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#ChronicRenalFailure">
+    <rdf:type rdf:resource="http://snomed.info/id/709044004"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-c.org/med#ConsultingSpecialist">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-c.org/med#HealthcareProvider"/>
+    <rdfs:label>Consulting Specialist</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_03">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
+    <rdfs:label>Ibuprofen</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#DiabetesType2">
+    <rdf:type rdf:resource="http://snomed.info/id/73211009"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#N18">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
+    <rdfs:label>Chronic renal failure</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Person">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Person</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://medonto.org/snomed-mapping-A">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/associatedWith">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>has clinical finding</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#E11">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Diagnosis"/>
+    <rdfs:label>Adult-onset diabetes</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/patient#RX_04">
+    <rdf:type rdf:resource="http://hospital-a.org/ehr#Prescription"/>
+    <rdfs:label>Lisinopril</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/BleedingRiskPatient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nffc61a21422a44829d19346259221692b1">
+    <rdf:first rdf:resource="http://hospital-c.org/med#treatedBy"/>
+    <rdf:rest rdf:nodeID="nffc61a21422a44829d19346259221692b2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#SalbutamolSulfate">
+    <rdf:type rdf:resource="http://snomed.info/id/387353006"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#MED_01">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#Medication"/>
+    <rdfs:label>Metformin Hydrochloride</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/patient#F_01">
+    <rdf:type rdf:resource="http://hospital-b.org/clinical#NutritionEntry"/>
+    <rdfs:label>Grapefruit</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#ChronicKidneyDisease">
+    <rdf:type rdf:resource="http://snomed.info/id/709044004"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://snomed.info/id/consumes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>consumes substance</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b12">
+    <rdf:first rdf:resource="http://snomed.info/id/125676002"/>
+    <rdf:rest rdf:nodeID="n92cc3d1d6e5e48b8b08f2cce499a1b46b13"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#MedicalPersonnel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://hospital-a.org/ehr#Person"/>
+    <rdfs:label>Medical Personnel</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://hospital-b.org/clinical#HuntingtonsDisease">
+    <rdf:type rdf:resource="http://snomed.info/id/58756001"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://hospital-b.org/clinical#Lisinopril">
-    <rdf:type rdf:resource="http://snomed.info/id/372706001"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Lisinopril">
     <rdf:type rdf:resource="http://snomed.info/id/372706001"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://medonto.org/snomed-mapping-B">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://medonto.org/snomed-mapping-C">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://hospital-a.org/ehr#Ibuprofen">
-    <rdf:type rdf:resource="http://snomed.info/id/387207008"/>
+  <rdf:Description rdf:about="http://hospital-a.org/ehr#Metformin">
+    <rdf:type rdf:resource="http://snomed.info/id/372567009"/>
   </rdf:Description>
 </rdf:RDF>

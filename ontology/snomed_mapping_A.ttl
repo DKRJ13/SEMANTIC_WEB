@@ -3,6 +3,7 @@
 
 @prefix ehr:  <http://hospital-a.org/ehr#> .
 @prefix sct:  <http://snomed.info/id/> .
+@prefix clin: <http://hospital-b.org/clinical#> .
 
 <http://medonto.org/snomed-mapping-A>
     rdf:type owl:Ontology ;
@@ -26,6 +27,9 @@ ehr:hasPrescription        owl:equivalentProperty sct:prescribedTo .
 ehr:hasParent              owl:equivalentProperty sct:hasBiologicalParent .
 ehr:hasAncestor            owl:equivalentProperty sct:hasBiologicalAncestor .
 ehr:hasGeneticCondition    owl:equivalentProperty sct:hasGeneticDisease .
+ehr:seenBy            owl:equivalentProperty clin:underCareOf .
+ehr:reliesOnColleague owl:equivalentProperty clin:consultsWith .
+
 
 # ──────────────────────────────────────────────
 #  INSTANCE MAPPINGS (Hospital A Entities -> SNOMED)

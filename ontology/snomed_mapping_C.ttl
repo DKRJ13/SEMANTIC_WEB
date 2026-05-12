@@ -15,12 +15,17 @@
 
 medc:MedicalRecord      owl:equivalentClass sct:125676002 . # Patient
 medc:Drug               owl:equivalentClass sct:373873005 . # Drug
+medc:ConfirmedIllness   owl:equivalentClass sct:404684003 . # Disease
 
 # ──────────────────────────────────────────────
 #  PROPERTY MAPPINGS (Hospital C -> SNOMED)
 # ──────────────────────────────────────────────
 
-medc:administeredDrug   owl:equivalentProperty sct:prescribedTo .
+medc:administeredDrug             owl:equivalentProperty sct:prescribedTo .
+medc:suffersFrom                  owl:equivalentProperty sct:associatedWith .
+medc:descendsFrom                 owl:equivalentProperty sct:hasBiologicalAncestor .
+medc:hasBiologicalMotherOrFather  owl:equivalentProperty sct:hasBiologicalParent .
+medc:hasHereditaryIllness         owl:equivalentProperty sct:hasGeneticDisease .
 
 # ──────────────────────────────────────────────
 #  INSTANCE MAPPINGS (Hospital C Entities -> SNOMED)
